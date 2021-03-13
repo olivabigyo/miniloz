@@ -55,9 +55,14 @@ function init() {
         }
         r++;
     }
+    for (const row of room.tiles) {
+        for (const tile of row) {
+            isConnected(tile);
+        }
+    }
 }
 
-init();
+// init();
 
 function clicked(tile) {
     // console.log('row: ', tile.r, 'column: ', tile.c);
@@ -124,3 +129,46 @@ function isConnected(tile) {
         tile.elem.style.opacity = 0.7;
     }
 }
+
+
+
+
+//
+//
+// ////////////////////////////////////////////////////////////////////////////
+
+const apiEndpoint = 'http://localhost/miniloz/backend/server.php';
+
+async function getRoom() {
+    // log(`Requesting ${operation} from server...`);
+
+    try {
+        const request = await fetch(apiEndpoint, {
+            // method: 'POST',
+            // headers: {
+                // 'Content-Type': 'application/json'
+            // },
+            // body: JSON.stringify({ operation, payload })
+        });
+        if (request.status != 200) {
+            console.log('Fetch bad status: ' + request.status);
+            return;
+        }
+
+        const data = await request.json();
+        if (!data.ok) {
+            console.log('Server returned error: ' + data.error);
+            return;
+        }
+
+        console.log('Successful request.', data);
+        room = data.room;
+        init();
+    } catch (err) {
+        // Error handling
+        console.log(err);
+        // logError('Exeption: ' + err);
+    }
+}
+
+getRoom();
