@@ -1,131 +1,126 @@
-const tilesDOM = document.querySelectorAll('.tiles');
-const rowlength = 4;
-const degrees = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+const canvas = document.getElementById('canvas')
 const nullTile = { image: '', connections: '0000', rotation: 0 };
-let tilesObject = [
-    { image: 'two.svg', connections: '1001', rotation: 0 },
-    { image: 'two-straight.svg', connections: '0101', rotation: 0 },
-    { image: 'three.svg', connections: '1011', rotation: 0 },
-    { image: 'one.svg', connections: '0100', rotation: 0 },
-    { image: 'three.svg', connections: '1011', rotation: 0 },
-    { image: 'two-straight.svg', connections: '0101', rotation: 0 },
-    { image: 'four.svg', connections: '1111', rotation: 0 },
-    { image: 'two.svg', connections: '1001', rotation: 0 },
-    { image: 'two.svg', connections: '1001', rotation: 0 },
-    { image: 'three.svg', connections: '1011', rotation: 0 },
-    { image: 'three.svg', connections: '1011', rotation: 0 },
-    { image: 'three.svg', connections: '1011', rotation: 0 },
-    { image: 'null.svg', connections: '0000', rotation: 0 },
-    { image: 'one.svg', connections: '0100', rotation: 0 },
-    { image: 'null.svg', connections: '0000', rotation: 0 },
-    { image: 'one.svg', connections: '0100', rotation: 0 }
-];
+let room = {
+    id: 1, name: 'main', w: 4, h: 4, tiles:
+        [[
+            { image: 'two.svg', connections: '1001', rotation: 0 },
+            { image: 'two-straight.svg', connections: '0101', rotation: 0 },
+            { image: 'three.svg', connections: '1011', rotation: 0 },
+            { image: 'one.svg', connections: '0100', rotation: 0 },
+        ],
+        [
+            { image: 'three.svg', connections: '1011', rotation: 0 },
+            { image: 'two-straight.svg', connections: '0101', rotation: 0 },
+            { image: 'four.svg', connections: '1111', rotation: 0 },
+            { image: 'two.svg', connections: '1001', rotation: 0 },
+        ],
+        [
+            { image: 'two.svg', connections: '1001', rotation: 0 },
+            { image: 'three.svg', connections: '1011', rotation: 0 },
+            { image: 'three.svg', connections: '1011', rotation: 0 },
+            { image: 'three.svg', connections: '1011', rotation: 0 },
+        ],
+        [
+            { image: 'null.svg', connections: '0000', rotation: 0 },
+            { image: 'one.svg', connections: '0100', rotation: 0 },
+            { image: 'null.svg', connections: '0000', rotation: 0 },
+            { image: 'one.svg', connections: '0100', rotation: 0 },
+        ]]
+};
 
-
-for (let i = 0; i < tilesDOM.length; ++i) {
-    tilesDOM[i].addEventListener('click', () => {
-        console.log('clicked');
-        tilesObject[i].rotation = (tilesObject[i].rotation + 1) % 4;
-        degrees[i] += 90;
-        tilesDOM[i].style.transform = `rotate(${degrees[i]}deg)`;
-        // connections(i);
-        // isConnected(i);
-        checkConnections(i);
-    })
+function getTile(r, c) {
+    return room.tiles[r][c];
 }
 
-// Neigbouring positions
-function topNeighbour(i) {
-    if (i - rowlength > -1) {
-        return tilesObject[i - rowlength];
-    } else {
-        return nullTile;
+function init() {
+    let r = 0;
+    for (const row of room.tiles) {
+        let c = 0;
+        for (const tile of row) {
+            // console.log('just do it!');
+            const elem = document.createElement('div');
+            elem.classList.add('tile');
+            tile.elem = elem;
+            tile.deg = tile.rotation * 90;
+            elem.style.transform = `rotate(${tile.deg}deg)`;
+            elem.style.backgroundImage = `url(img/${tile.image})`;
+            canvas.appendChild(elem);
+            tile.r = r;
+            tile.c = c;
+            elem.addEventListener('click', () => {
+                // console.log('clicked');
+                clicked(tile);
+            });
+            c++;
+        }
+        r++;
     }
-};
-function rightNeighbour(i) {
-    if (i % 4 != 3) {
-        return tilesObject[i + 1];
-    } else {
-        return nullTile;
-    }
-};
-function bottomNeighbour(i) {
-    if (i + rowlength < 16) {
-        return tilesObject[i + rowlength];
-    } else {
-        return nullTile;
-    }
-};
-function leftNeighbour(i) {
-    if (i % 4 != 0) {
-        return tilesObject[i - 1];
-    } else {
-        return nullTile;
-    }
-};
+}
 
-// rotation
-// tile.rotation = 0 to 3
+init();
+
+function clicked(tile) {
+    // console.log('row: ', tile.r, 'column: ', tile.c);
+    tile.rotation = (tile.rotation + 1) % 4;
+    tile.deg += 90;
+    tile.elem.style.transform = `rotate(${tile.deg}deg)`;
+    checkConnections(tile);
+}
+
+function checkConnections(tile) {
+    isConnected(tile);
+    isConnected(topNeighbour(tile));
+    isConnected(rightNeighbour(tile));
+    isConnected(bottomNeighbour(tile));
+    isConnected(leftNeighbour(tile));
+}
 
 // directions:
-const topy = 0;
-const right = 1;
-const bottom = 2;
-const left = 3;
+const UP = 0;
+const RIGHT = 1;
+const DOWN = 2;
+const LEFT = 3;
 
-// mytile.connections is a 4 character string and we want to compare all the four side with the neighboring sides
-
-function connections(i) {
-    // console.log('clicked tile: ',tilesObject[i]);
-
-    console.log('tile is connected with:')
-    if (tilesObject[i].connections[(4 + right - tilesObject[i].rotation) % 4] == rightNeighbour(i).connections[(4 + left - rightNeighbour(i).rotation) % 4]) {
-        console.log("- right neigbour");
-    }
-    // console.log('bottom neighbour: ', bottomNeighbour(i));
-
-    if (tilesObject[i].connections[(4 + bottom - tilesObject[i].rotation) % 4] == bottomNeighbour(i).connections[(4 + topy - bottomNeighbour(i).rotation) % 4]) {
-        console.log("- bottom neigbour");
-    }
-    // console.log('left neghbour: ', leftNeighbour(i));
-
-    if (tilesObject[i].connections[(4 + left - tilesObject[i].rotation) % 4] == leftNeighbour(i).connections[(4 + right - leftNeighbour(i).rotation) % 4]) {
-        console.log("- left neigbour");
-    }
-    // console.log('top neighbour: ', topNeighbour(i));
-
-    if (tilesObject[i].connections[(4 + topy - tilesObject[i].rotation) % 4] == topNeighbour(i).connections[(4 + bottom - topNeighbour(i).rotation) % 4]) {
-        console.log("- top neigbour");
-    }
-}
-
-function isConnected(i) {
-    if ((tilesObject[i].connections[(4 + right - tilesObject[i].rotation) % 4] == rightNeighbour(i).connections[(4 + left - rightNeighbour(i).rotation) % 4])
-        && (tilesObject[i].connections[(4 + bottom - tilesObject[i].rotation) % 4] == bottomNeighbour(i).connections[(4 + topy - bottomNeighbour(i).rotation) % 4])
-        && (tilesObject[i].connections[(4 + left - tilesObject[i].rotation) % 4] == leftNeighbour(i).connections[(4 + right - leftNeighbour(i).rotation) % 4])
-        && (tilesObject[i].connections[(4 + topy - tilesObject[i].rotation) % 4] == topNeighbour(i).connections[(4 + bottom - topNeighbour(i).rotation) % 4])) {
-        console.log('YES!');
-        tilesDOM[i].style.opacity = 1;
+// Neigbouring positions
+function topNeighbour(t) {
+    if (t.r > 0) {
+        return getTile(t.r - 1, t.c);
     } else {
-        tilesDOM[i].style.opacity = 0.7;
+        return nullTile;
+    }
+};
+function rightNeighbour(t) {
+    if (t.c < room.w - 1) {
+        return getTile(t.r, t.c + 1);
+    } else {
+        return nullTile;
+    }
+};
+function bottomNeighbour(t) {
+    if (t.r < room.h - 1) {
+        return getTile(t.r + 1, t.c);
+    } else {
+        return nullTile;
+    }
+};
+function leftNeighbour(t) {
+    if (t.c > 0) {
+        return getTile(t.r, t.c - 1);
+    } else {
+        return nullTile;
+    }
+};
 
+function isConnected(tile) {
+    if (tile == nullTile) return;
+    if (
+        (tile.connections[(4 + RIGHT - tile.rotation) % 4] == rightNeighbour(tile).connections[(4 + LEFT - rightNeighbour(tile).rotation) % 4])
+        && (tile.connections[(4 + DOWN - tile.rotation) % 4] == bottomNeighbour(tile).connections[(4 + UP - bottomNeighbour(tile).rotation) % 4])
+        && (tile.connections[(4 + LEFT - tile.rotation) % 4] == leftNeighbour(tile).connections[(4 + RIGHT - leftNeighbour(tile).rotation) % 4])
+        && (tile.connections[(4 + UP - tile.rotation) % 4] == topNeighbour(tile).connections[(4 + DOWN - topNeighbour(tile).rotation) % 4])
+    ) {
+        tile.elem.style.opacity = 1;
+    } else {
+        tile.elem.style.opacity = 0.7;
     }
-}
-
-function checkConnections(i) {
-    isConnected(i);
-    if (i - rowlength > -1) {
-        isConnected(i - rowlength);
-    }
-    if (i % 4 != 3) {
-        isConnected(i + 1);
-    }
-    if (i + rowlength < 16) {
-        isConnected(i + rowlength);
-    }
-    if (i % 4 != 0) {
-        isConnected(i - 1);
-    }
-
-
 }
