@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room Generator - RoL</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+    <!-- Bootstrap cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css"
+        integrity="sha512-oc9+XSs1H243/FRN9Rw62Fn8EtxjEYWHXRvjS43YtueEewbS6ObfXcJNyohjHqVKFPoXXUxwc+q1K7Dee6vv9g=="
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a href="rooms.html" class="navbar-brand"><img src="img/logo.svg" class="" alt="logo"></a>
+            <button class="navbar-toggler" data-toggle="collapse" data-target="#navbar-toggler">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar-toggler">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a href="profile.html" class="nav-link">
+                            <i class="fas fa-user-cog"></i> Profile</a>
+                    </li>
+                    <li class="nav-item"><a href="login.html" class="nav-link">
+                            <i class="fas fa-user"></i> Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <h1>Active rooms</h1>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mx-auto">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>#</td>
+                            <td>Name</td>
+                            <td>Size</td>
+                            <td>Active</td>
+                            <td>Actions</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Main</td>
+                            <td>20x20</td>
+                            <td>5 min ago</td>
+                            <td><a href="game.html" class="btn btn-theme">Step in</a></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Kata</td>
+                            <td>25x25</td>
+                            <td>5 min ago</td>
+                            <td><a href="game.html" class="btn btn-theme">Step in</a></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Warm up</td>
+                            <td>15x15</td>
+                            <td>5 min ago</td>
+                            <td><a href="game.html" class="btn btn-theme">Step in</a></td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Mini</td>
+                            <td>10x10</td>
+                            <td>5 min ago</td>
+                            <td><a href="game.html" class="btn btn-theme">Step in</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Want a new one?</p>
+                <a href="room-generator.html" class="btn btn-theme btn-block">Room Generator</a>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

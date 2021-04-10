@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - RoL</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+    <!-- Bootstrap cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css"
+        integrity="sha512-oc9+XSs1H243/FRN9Rw62Fn8EtxjEYWHXRvjS43YtueEewbS6ObfXcJNyohjHqVKFPoXXUxwc+q1K7Dee6vv9g=="
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+    <h1>Rooms of Loops</h1>
+
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col-lg-4 mx-auto">
+                <form action="login" method="post">
+                    <div class="form-group">
+                        <label for="username"><span class="">Username:</span></label>
+                        <div class="input-group mb-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text i-theme"><i class="fas fa-user"></i></span>
+                            </div>
+                            <input type="text" class="form-control" name="Username" id="username">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password"><span>Password:</span></label>
+                        <div class="input-group mb-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text i-theme"><i class="fas fa-lock"></i></span>
+                            </div>
+                            <input type="password" class="form-control" name="Password" id="password">
+                        </div>
+                    </div>
+                    <!-- <input type="submit" name="Submit" class="btn btn-theme btn-block mb-3" value="LOGIN"> -->
+                    <a href="rooms.html" class="btn btn-theme btn-block mb-3">Login</a>
+                </form>
+            </div>
+        </div>
+        <!-- end row-->
+    </div>
+    <!-- END MAIN AREA -->
+
+</body>
+
+</html>

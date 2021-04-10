@@ -77,6 +77,9 @@ function init() {
             const elem = document.createElement('div');
             elem.classList.add('tile');
             tile.elem = elem;
+            const tilewidth = 600/room.w;
+            elem.style.width = `${tilewidth}px`;
+            elem.style.height = `${tilewidth}px`;
             tile.deg = tile.rotation * 90;
             elem.style.transform = `rotate(${tile.deg}deg)`;
             elem.style.backgroundImage = `url(img/${tile.image})`;
@@ -173,6 +176,7 @@ function isConnected(tile) {
     ) {
         // tile is connected in all sides
         tile.elem.style.opacity = 1;
+        tile.elem.style.border = 'none';
     } else {
         // at least on side doesn't fit with the neigbour tile
         tile.elem.style.opacity = 0.7;
