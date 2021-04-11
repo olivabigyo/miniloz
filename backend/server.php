@@ -2,9 +2,22 @@
 require_once 'load.php';
 require_once 'class/Game.class.php';
 
+// we handle requests from anyone
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST');
+header('Access-Control-Allow-Headers: Content-Type');
 header('Content-Type: application/json');
-// header('Content-Type: text/plain');  // at developing and testing with print_r
 
+$method = $_SERVER['REQUEST_METHOD'];
+if ($method === 'OPTIONS') {
+    // We have set all the necessary CORS headers, just return.
+    exit;
+}
+
+if ($method !== 'POST') {
+    echo json_encode(array('ok' => false, 'error' => 'Only POST requests allowed'));
+    exit;
+}
 
 $request = json_decode(file_get_contents('php://input'));
 $action = $request->action;
@@ -20,9 +33,6 @@ if ($action !== 'getNewRoom') {
 $w = $payload->size;
 $h = $w;
 $density = $payload->density;
-
-// $w = 5;
-// $h = 5;
 
 $game = Game::generate($w, $h, $density);
 
