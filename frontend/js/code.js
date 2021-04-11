@@ -32,49 +32,17 @@ async function sendRequest(action, payload) {
     }
 }
 
-// getRoom();
-
-// This is a 4x4 room for the first prototype before writing getRoom and without the serverside createRoom:
-// The directions in the connections-string are: up, right, down, left
-// let room = {
-//     id: 1, name: 'main', w: 4, h: 4, tiles:
-//         [[
-//             { image: 'two.svg', connections: '1001', rotation: 0 },
-//             { image: 'two-straight.svg', connections: '0101', rotation: 0 },
-//             { image: 'three.svg', connections: '1011', rotation: 0 },
-//             { image: 'one.svg', connections: '0100', rotation: 0 },
-//         ],
-//         [
-//             { image: 'three.svg', connections: '1011', rotation: 0 },
-//             { image: 'two-straight.svg', connections: '0101', rotation: 0 },
-//             { image: 'four.svg', connections: '1111', rotation: 0 },
-//             { image: 'two.svg', connections: '1001', rotation: 0 },
-//         ],
-//         [
-//             { image: 'two.svg', connections: '1001', rotation: 0 },
-//             { image: 'three.svg', connections: '1011', rotation: 0 },
-//             { image: 'three.svg', connections: '1011', rotation: 0 },
-//             { image: 'three.svg', connections: '1011', rotation: 0 },
-//         ],
-//         [
-//             { image: 'null.svg', connections: '0000', rotation: 0 },
-//             { image: 'one.svg', connections: '0100', rotation: 0 },
-//             { image: 'null.svg', connections: '0000', rotation: 0 },
-//             { image: 'one.svg', connections: '0100', rotation: 0 },
-//         ]]
-// };
-
 // define the tile from position
 function getTile(r, c) {
     return game.tiles[r][c];
 }
 
 function init() {
+    playground.innerHTML = "";
     let r = 0;
     for (const row of game.tiles) {
         let c = 0;
         for (const tile of row) {
-            // console.log('just counting...');
             const elem = document.createElement('div');
             elem.classList.add('tile');
             tile.elem = elem;
@@ -88,7 +56,6 @@ function init() {
             tile.r = r;
             tile.c = c;
             elem.addEventListener('click', () => {
-                // console.log('clicked');
                 clicked(tile);
             });
             c++;
@@ -104,8 +71,6 @@ function init() {
 }
 
 function clicked(tile) {
-    // console.log('row: ', tile.r, 'column: ', tile.c);
-
     // increase values
     tile.rotation = (tile.rotation + 1) % 4;
     tile.deg += 90;
@@ -192,14 +157,14 @@ function isConnected(tile) {
 const sections = document.querySelectorAll('.section');
 
 const sectionDict = {
-    home: document.querySelector('.home-section'),
-    login: document.querySelector('.login-section'),
-    signup: document.querySelector('.signup-section'),
-    profile: document.querySelector('.profile-section'),
-    password: document.querySelector('.password-section'),
-    rooms: document.querySelector('.rooms-section'),
-    roomGenerator: document.querySelector('.room-generator-section'),
-    game: document.querySelector('.game-section'),
+    home:           document.querySelector('.home-section'),
+    login:          document.querySelector('.login-section'),
+    signup:         document.querySelector('.signup-section'),
+    profile:        document.querySelector('.profile-section'),
+    password:       document.querySelector('.password-section'),
+    rooms:          document.querySelector('.rooms-section'),
+    roomGenerator:  document.querySelector('.room-generator-section'),
+    game:           document.querySelector('.game-section'),
 };
 
 function makeActive(selected) {
@@ -236,4 +201,37 @@ newRoomForm.addEventListener('submit', async (event) => {
     game = data.room.game;
     init();
     makeActive(sectionDict.game);
+});
+
+const loginForm = document.getElementById('submitLogin');
+loginForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const name = document.getElementById('username').value;
+    const pwd = document.getElementById('password').value;
+    console.log(name, pwd);
+
+    const data = await sendRequest('attemptLogin', {name, pwd});
+});
+
+const signupForm = document.getElementById('submitSignup');
+signupForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const name = document.getElementById('usernameSignup').value;
+    const pwd = document.getElementById('passwordSignup').value;
+    const pwd2 = document.getElementById('passwordSignupRep').value;
+    console.log(name, pwd, pwd2);
+
+    const data = await sendRequest('submitSignup', {name, pwd});
+});
+
+const passwordForm = document.getElementById('submitPassword');
+passwordForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const name = document.getElementById('usernameEx').value; // ez nyilvan nem valaszthato, gondolom jon valami sessionbol
+    const pwd = document.getElementById('passwordEx').value;
+    const newpwd = document.getElementById('passwordNew').value;
+    const newpwd2 = document.getElementById('passwordNewRep').value;
+    console.log(name, pwd, newpwd, newpwd2);
+
+    const data = await sendRequest('changePassword', {name, pwd, newpwd, newpwd2});
 });

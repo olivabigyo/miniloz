@@ -25,40 +25,40 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light sticky-top">
         <div class="container">
-            <a href="rooms.html" data-go="rooms" class="navbar-brand">Rooms of Loops</a>
+            <a href="#" class="navbar-brand" data-go="rooms">Rooms of Loops</a>
             <button class="navbar-toggler" data-toggle="collapse" data-target="#navbar-toggler">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbar-toggler">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a href="profile.html" data-go="profile" class="nav-link">
+                        <a href="#" data-go="profile" class="nav-link">
                             <i class="fas fa-user-cog"></i> Profile
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="index.html" data-go="login" class="nav-link"><i class="fas fa-user"></i> Logout</a>
+                        <a href="#" data-go="home" class="nav-link"><i class="fas fa-user"></i> Logout</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <div class="section home-section flexible">
+    <div class="section home-section flexible active">
         <h2>Rooms of Loops</h2>
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 mx-auto">
-                    <a href="login.html" class="btn btn-theme btn-block mb-4">
+                    <a href="#" class="btn btn-theme btn-block mb-4" data-go="login">
                         <i class="fas fa-user"></i> Login
                     </a>
                     <p>Not user yet?</p>
-                    <a href="signup.html" class="btn btn-theme btn-block mb-4">
+                    <a href="#" class="btn btn-theme btn-block mb-4" data-go="signup">
                         <i class="fas fa-pen"></i> Sign up
                     </a>
-                    <a href="about.html" class="btn btn-theme btn-block">
+                    <!-- <a href="#" class="btn btn-theme btn-block" data-go="about">
                         <i class="fas fa-book"></i> About
-                    </a>
+                    </a> -->
                 </div>
             </div>
         </div>
@@ -69,27 +69,27 @@
         <div class="container">
             <div class="row mt-4">
                 <div class="col-lg-4 mx-auto">
-                    <form action="login" method="post">
+                    <form action="" id="submitLogin">
                         <div class="form-group">
                             <label for="username"><span class="">Username:</span></label>
                             <div class="input-group mb-4">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text i-theme"><i class="fas fa-user"></i></span>
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
-                                <input type="text" class="form-control" name="Username" id="username">
+                                <input type="text" class="form-control" id="username">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="password"><span>Password:</span></label>
                             <div class="input-group mb-4">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text i-theme"><i class="fas fa-lock"></i></span>
+                                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
                                 </div>
-                                <input type="password" class="form-control" name="Password" id="password">
+                                <input type="password" class="form-control" id="password">
                             </div>
                         </div>
-                        <!-- <input type="submit" name="Submit" class="btn btn-theme btn-block mb-3" value="LOGIN"> -->
-                        <a href="rooms.html" class="btn btn-theme btn-block mb-3">Login</a>
+                        <input type="submit" data-go="rooms" class="btn btn-theme btn-block mb-3" value="Login">
+                        <!-- <a href="#" class="btn btn-theme btn-block mb-3" data-go="rooms">Login</a> -->
                     </form>
                 </div>
             </div>
@@ -101,36 +101,36 @@
         <div class="container">
             <div class="row mt-4">
                 <div class="col-lg-4 mx-auto">
-                    <form action="signup" method="post">
+                    <form action="" id="submitSignup">
                         <div class="form-group">
-                            <label for="username"><span class="">Username:</span></label>
+                            <label for="usernameSignup"><span class="">Username:</span></label>
                             <div class="input-group mb-4">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text i-theme"><i class="fas fa-user"></i></span>
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
-                                <input type="text" class="form-control" name="Username" id="username">
+                                <input type="text" class="form-control"  id="usernameSignup">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="password"><span>Password:</span></label>
+                            <label for="passwordSignup"><span>Password:</span></label>
                             <div class="input-group mb-4">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text i-theme"><i class="fas fa-lock"></i></span>
+                                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
                                 </div>
-                                <input type="password" class="form-control" name="Password" id="password">
+                                <input type="password" class="form-control" id="passwordSignup">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="password2"><span>Repeat Password:</span></label>
+                            <label for="passwordSignupRep"><span>Repeat Password:</span></label>
                             <div class="input-group mb-4">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text i-theme"><i class="fas fa-lock"></i></span>
+                                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
                                 </div>
-                                <input type="password" class="form-control" name="Password2" id="password2">
+                                <input type="password" class="form-control" id="passwordSignupRep">
                             </div>
                         </div>
-                        <!-- <input type="submit" name="Submit" class="btn btn-theme btn-block mb-3" value="Sign up"> -->
-                        <a href="rooms.html" class="btn btn-theme btn-block mb-3">Sign up</a>
+                        <input type="submit" data-go="rooms" class="btn btn-theme btn-block mb-3" value="Sign up">
+                        <!-- <a href="#" class="btn btn-theme btn-block mb-3" data-go="rooms">Sign up</a> -->
                     </form>
                 </div>
             </div>
@@ -142,13 +142,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 mx-auto">
-                    <a href="myrooms.html" class="btn btn-theme btn-block mb-4">
+                    <!-- <a href="myrooms.html" class="btn btn-theme btn-block mb-4">
                         <i class="fas fa-pen"></i> My rooms
                     </a>
                     <a href="friends.html" class="btn btn-theme btn-block mb-4">
                         <i class="fas fa-user"></i> Friends
-                    </a>
-                    <a href="password.html" class="btn btn-theme btn-block">
+                    </a> -->
+                    <a href="#" class="btn btn-theme btn-block" data-go="password">
                         <i class="fas fa-key"></i> Change Password
                     </a>
                 </div>
@@ -161,45 +161,44 @@
         <div class="container">
             <div class="row mt-4">
                 <div class="col-lg-4 mx-auto">
-                    <form action="signup" method="post">
+                    <form action="" id="submitPassword">
                         <div class="form-group">
-                            <label for="username"><span class="">Username:</span></label>
+                            <label for="usernameEx"><span class="">Username:</span></label>
                             <div class="input-group mb-4">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text i-theme"><i class="fas fa-user"></i></span>
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
-                                <input type="text" class="form-control" name="Username" id="username">
+                                <input type="text" class="form-control" id="usernameEx">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="password"><span>Password:</span></label>
+                            <label for="passwordEx"><span>Password:</span></label>
                             <div class="input-group mb-4">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text i-theme"><i class="fas fa-lock"></i></span>
+                                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
                                 </div>
-                                <input type="password" class="form-control" name="Password" id="password">
+                                <input type="password" class="form-control" id="passwordEx">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="password"><span>New Password:</span></label>
+                            <label for="passwordNew"><span>New Password:</span></label>
                             <div class="input-group mb-4">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text i-theme"><i class="fas fa-lock"></i></span>
+                                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
                                 </div>
-                                <input type="password" class="form-control" name="Password" id="password">
+                                <input type="password" class="form-control" id="passwordNew">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="password2"><span>Repeat New Password:</span></label>
+                            <label for="passwordNewRep"><span>Repeat New Password:</span></label>
                             <div class="input-group mb-4">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text i-theme"><i class="fas fa-lock"></i></span>
+                                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
                                 </div>
-                                <input type="password" class="form-control" name="Password2" id="password2">
+                                <input type="password" class="form-control" id="passwordNewRep">
                             </div>
                         </div>
-                        <!-- <input type="submit" name="Submit" class="btn btn-theme btn-block mb-3" value="Save"> -->
-                        <a href="rooms.html" class="btn btn-theme btn-block mb-3">Save</a>
+                        <input type="submit" class="btn btn-theme btn-block mb-3" value="Save">
                     </form>
                 </div>
             </div>
@@ -227,41 +226,40 @@
                                 <td>Main</td>
                                 <td>20x20</td>
                                 <td>5 min ago</td>
-                                <td><a href="game.html" data-go="game" class="btn btn-theme">Step in</a></td>
+                                <td><a href="#" data-go="game" class="btn btn-theme">Step in</a></td>
                             </tr>
                             <tr>
                                 <td>2</td>
                                 <td>Kata</td>
                                 <td>25x25</td>
                                 <td>5 min ago</td>
-                                <td><a href="game.html" class="btn btn-theme">Step in</a></td>
+                                <td><a href="#" class="btn btn-theme">Step in</a></td>
                             </tr>
                             <tr>
                                 <td>3</td>
                                 <td>Warm up</td>
                                 <td>15x15</td>
                                 <td>5 min ago</td>
-                                <td><a href="game.html" class="btn btn-theme">Step in</a></td>
+                                <td><a href="#" class="btn btn-theme">Step in</a></td>
                             </tr>
                             <tr>
                                 <td>4</td>
                                 <td>Mini</td>
                                 <td>10x10</td>
                                 <td>5 min ago</td>
-                                <td><a href="game.html" class="btn btn-theme">Step in</a></td>
+                                <td><a href="#" class="btn btn-theme">Step in</a></td>
                             </tr>
                         </tbody>
                     </table>
                     <p>Want a new one?</p>
-                    <a href="room-generator.html" data-go="roomGenerator" class="btn btn-theme btn-block">Room
-                        Generator</a>
+                    <a href="#" data-go="roomGenerator" class="btn btn-theme btn-block">Room Generator</a>
                 </div>
             </div>
         </div>
     </div>
 
 
-    <div class="section room-generator-section flexible active">
+    <div class="section room-generator-section flexible">
         <h2>Room Generator</h2>
         <div class="container">
             <div class="row">
@@ -279,8 +277,7 @@
                             <label for="roomdensity"><span>Density of the Room:</span></label>
                             <input type="number" class="form-control" name="RoomDensity" id="roomdensity" value="0.65">
                         </div>
-                        <input type="submit" name="Submit" class="btn btn-theme btn-block mb-3" value="Create Room">
-                        <!-- <a href="game.html" class="btn btn-theme btn-block mb-3">Create Room</a> -->
+                        <input type="submit" class="btn btn-theme btn-block mb-3" value="Create Room">
                     </form>
                 </div>
             </div>
@@ -288,7 +285,7 @@
     </div>
 
     <div class="section game-section flexible">
-        <h3>Game: main</h3>
+        <h3>Game: </h3>
         <div id="canvas"></div>
     </div>
 
