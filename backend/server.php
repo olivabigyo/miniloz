@@ -16,8 +16,6 @@ echo json_encode(array(
     'room' => array(
         'id' => 1,
         'name' => 'main',
-        'w' => $game->width(),
-        'h' => $game->height(),
-        'tiles' => $game->exportTiles()
+        'game' => $game->export()
     )
 ));

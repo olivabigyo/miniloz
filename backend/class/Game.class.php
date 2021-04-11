@@ -65,15 +65,7 @@ class Game
         return new Game($w, $h, $tiles);
     }
 
-    public function width() {
-        return $this->w;
-    }
-
-    public function height() {
-        return $this->h;
-    }
-
-    public function exportTiles()
+    public function export()
     {
         $tiles = array();
         foreach ($this->tiles as $tilesRow) {
@@ -83,6 +75,10 @@ class Game
             }
             $tiles[] = $row;
         }
-        return $tiles;
+        return array(
+            'w' => $this->w,
+            'h' => $this->h,
+            'tiles' => $tiles
+        );
     }
 }
