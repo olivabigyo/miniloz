@@ -4,7 +4,7 @@ const playground = document.getElementById('canvas')
 const nullTile = { image: '', connections: '0000', rotation: 0 };
 let game = {};
 // const apiEndpoint = 'http://localhost/miniloz/backend/server.php';
-const apiEndpoint = 'https://amongus.olivabigyo.site/loops.php';
+const apiEndpoint = 'https://amongus.olivabigyo.site/loops-backend/server.php';
 
 async function sendRequest(action, payload) {
 
