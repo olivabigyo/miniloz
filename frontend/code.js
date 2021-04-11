@@ -1,6 +1,6 @@
 const playground = document.getElementById('canvas')
 const nullTile = { image: '', connections: '0000', rotation: 0 };
-let room = {};
+let game = {};
 const apiEndpoint = 'http://localhost/miniloz/backend/server.php';
 
 async function getRoom() {
@@ -23,7 +23,7 @@ async function getRoom() {
 
         console.log('Successful request.', data);
 
-        room = data.room;
+        game = data.room.game;
         init();
 
     } catch (err) {
@@ -65,19 +65,19 @@ getRoom();
 
 // define the tile from position
 function getTile(r, c) {
-    return room.tiles[r][c];
+    return game.tiles[r][c];
 }
 
 function init() {
     let r = 0;
-    for (const row of room.tiles) {
+    for (const row of game.tiles) {
         let c = 0;
         for (const tile of row) {
             // console.log('just counting...');
             const elem = document.createElement('div');
             elem.classList.add('tile');
             tile.elem = elem;
-            const tilewidth = 600/room.w;
+            const tilewidth = 600 / game.w;
             elem.style.width = `${tilewidth}px`;
             elem.style.height = `${tilewidth}px`;
             tile.deg = tile.rotation * 90;
@@ -95,7 +95,7 @@ function init() {
         r++;
     }
     // Mark the connected tiles
-    for (const row of room.tiles) {
+    for (const row of game.tiles) {
         for (const tile of row) {
             isConnected(tile);
         }
@@ -132,14 +132,14 @@ function topNeighbour(t) {
     }
 };
 function rightNeighbour(t) {
-    if (t.c < room.w - 1) {
+    if (t.c < game.w - 1) {
         return getTile(t.r, t.c + 1);
     } else {
         return nullTile;
     }
 };
 function bottomNeighbour(t) {
-    if (t.r < room.h - 1) {
+    if (t.r < game.h - 1) {
         return getTile(t.r + 1, t.c);
     } else {
         return nullTile;
@@ -180,5 +180,41 @@ function isConnected(tile) {
     } else {
         // at least on side doesn't fit with the neigbour tile
         tile.elem.style.opacity = 0.7;
+        tile.elem.style.border = '2px solid rgb(148, 148, 148)';
     }
+}
+
+
+// ********************************
+
+
+const sections = document.querySelectorAll('.section');
+
+const sectionDict = {
+    home: document.querySelector('.home-section'),
+    login: document.querySelector('.login-section'),
+    signup: document.querySelector('.signup-section'),
+    profile: document.querySelector('.profile-section'),
+    password: document.querySelector('.password-section'),
+    rooms: document.querySelector('.rooms-section'),
+    roomGenerator: document.querySelector('.room-generator-section'),
+    game: document.querySelector('.game-section'),
+};
+
+function makeActive(selected) {
+    for (const section of sections) {
+        section.classList.remove('active');
+    }
+    selected.classList.add('active');
+}
+
+function selectSection(event) {
+    event.preventDefault();
+    // TODO: target??
+    const elem = event.target;
+    makeActive(sectionDict[elem.dataset.go]);
+}
+
+for (const elem of document.querySelectorAll('a[data-go]')) {
+    elem.addEventListener('click', selectSection);
 }

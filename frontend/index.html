@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - RoL</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+    <!-- Bootstrap cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css"
+        integrity="sha512-oc9+XSs1H243/FRN9Rw62Fn8EtxjEYWHXRvjS43YtueEewbS6ObfXcJNyohjHqVKFPoXXUxwc+q1K7Dee6vv9g=="
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a href="rooms.html" data-go="rooms" class="navbar-brand">Rooms of Loops</a>
+            <button class="navbar-toggler" data-toggle="collapse" data-target="#navbar-toggler">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar-toggler">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a href="profile.html" data-go="profile" class="nav-link">
+                            <i class="fas fa-user-cog"></i> Profile
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="index.html" data-go="login" class="nav-link"><i class="fas fa-user"></i> Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="section home-section active flexible">
+        <h2>Rooms of Loops</h2>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mx-auto">
+                    <a href="login.html" class="btn btn-theme btn-block mb-4">
+                        <i class="fas fa-user"></i> Login
+                    </a>
+                    <p>Not user yet?</p>
+                    <a href="signup.html" class="btn btn-theme btn-block mb-4">
+                        <i class="fas fa-pen"></i> Sign up
+                    </a>
+                    <a href="about.html" class="btn btn-theme btn-block">
+                        <i class="fas fa-book"></i> About
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section login-section flexible">
+        <h2>Login</h2>
+        <div class="container">
+            <div class="row mt-4">
+                <div class="col-lg-4 mx-auto">
+                    <form action="login" method="post">
+                        <div class="form-group">
+                            <label for="username"><span class="">Username:</span></label>
+                            <div class="input-group mb-4">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text i-theme"><i class="fas fa-user"></i></span>
+                                </div>
+                                <input type="text" class="form-control" name="Username" id="username">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password"><span>Password:</span></label>
+                            <div class="input-group mb-4">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text i-theme"><i class="fas fa-lock"></i></span>
+                                </div>
+                                <input type="password" class="form-control" name="Password" id="password">
+                            </div>
+                        </div>
+                        <!-- <input type="submit" name="Submit" class="btn btn-theme btn-block mb-3" value="LOGIN"> -->
+                        <a href="rooms.html" class="btn btn-theme btn-block mb-3">Login</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section signup-section flexible">
+        <h2>Sign Up</h2>
+        <div class="container">
+            <div class="row mt-4">
+                <div class="col-lg-4 mx-auto">
+                    <form action="signup" method="post">
+                        <div class="form-group">
+                            <label for="username"><span class="">Username:</span></label>
+                            <div class="input-group mb-4">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text i-theme"><i class="fas fa-user"></i></span>
+                                </div>
+                                <input type="text" class="form-control" name="Username" id="username">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password"><span>Password:</span></label>
+                            <div class="input-group mb-4">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text i-theme"><i class="fas fa-lock"></i></span>
+                                </div>
+                                <input type="password" class="form-control" name="Password" id="password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password2"><span>Repeat Password:</span></label>
+                            <div class="input-group mb-4">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text i-theme"><i class="fas fa-lock"></i></span>
+                                </div>
+                                <input type="password" class="form-control" name="Password2" id="password2">
+                            </div>
+                        </div>
+                        <!-- <input type="submit" name="Submit" class="btn btn-theme btn-block mb-3" value="Sign up"> -->
+                        <a href="rooms.html" class="btn btn-theme btn-block mb-3">Sign up</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section profile-section flexible">
+        <h2>Profile</h2>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mx-auto">
+                    <a href="myrooms.html" class="btn btn-theme btn-block mb-4">
+                        <i class="fas fa-pen"></i> My rooms
+                    </a>
+                    <a href="friends.html" class="btn btn-theme btn-block mb-4">
+                        <i class="fas fa-user"></i> Friends
+                    </a>
+                    <a href="password.html" class="btn btn-theme btn-block">
+                        <i class="fas fa-key"></i> Change Password
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section password-section flexible">
+        <h2>Password</h2>
+        <div class="container">
+            <div class="row mt-4">
+                <div class="col-lg-4 mx-auto">
+                    <form action="signup" method="post">
+                        <div class="form-group">
+                            <label for="username"><span class="">Username:</span></label>
+                            <div class="input-group mb-4">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text i-theme"><i class="fas fa-user"></i></span>
+                                </div>
+                                <input type="text" class="form-control" name="Username" id="username">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password"><span>Password:</span></label>
+                            <div class="input-group mb-4">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text i-theme"><i class="fas fa-lock"></i></span>
+                                </div>
+                                <input type="password" class="form-control" name="Password" id="password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password"><span>New Password:</span></label>
+                            <div class="input-group mb-4">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text i-theme"><i class="fas fa-lock"></i></span>
+                                </div>
+                                <input type="password" class="form-control" name="Password" id="password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password2"><span>Repeat New Password:</span></label>
+                            <div class="input-group mb-4">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text i-theme"><i class="fas fa-lock"></i></span>
+                                </div>
+                                <input type="password" class="form-control" name="Password2" id="password2">
+                            </div>
+                        </div>
+                        <!-- <input type="submit" name="Submit" class="btn btn-theme btn-block mb-3" value="Save"> -->
+                        <a href="rooms.html" class="btn btn-theme btn-block mb-3">Save</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section rooms-section flexible">
+        <h2>Active rooms</h2>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mx-auto">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td>#</td>
+                                <td>Name</td>
+                                <td>Size</td>
+                                <td>Active</td>
+                                <td>Actions</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Main</td>
+                                <td>20x20</td>
+                                <td>5 min ago</td>
+                                <td><a href="game.html" data-go="game" class="btn btn-theme">Step in</a></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Kata</td>
+                                <td>25x25</td>
+                                <td>5 min ago</td>
+                                <td><a href="game.html" class="btn btn-theme">Step in</a></td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Warm up</td>
+                                <td>15x15</td>
+                                <td>5 min ago</td>
+                                <td><a href="game.html" class="btn btn-theme">Step in</a></td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>Mini</td>
+                                <td>10x10</td>
+                                <td>5 min ago</td>
+                                <td><a href="game.html" class="btn btn-theme">Step in</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>Want a new one?</p>
+                    <a href="room-generator.html" class="btn btn-theme btn-block">Room Generator</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="section room-generator-section flexible">
+        <h2>Room Generator</h2>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mx-auto">
+                    <form action="room" method="post">
+                        <div class="form-group">
+                            <label for="roomname"><span class="">Name of the Room:</span></label>
+                            <input type="text" class="form-control" name="Roomname" id="roomname" value="Main">
+                        </div>
+                        <div class="form-group">
+                            <label for="roomsize"><span>Size of the Room:</span></label>
+                            <input type="number" class="form-control" name="RoomSize" id="roomsize" value="8">
+                        </div>
+                        <div class="form-group">
+                            <label for="roomdensity"><span>Density of the Room:</span></label>
+                            <input type="number" class="form-control" name="RoomDensity" id="roomdensity" value="0.65">
+                        </div>
+                        <!-- <input type="submit" name="Submit" class="btn btn-theme btn-block mb-3" value="Create Room"> -->
+                        <a href="game.html" class="btn btn-theme btn-block mb-3">Create Room</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section game-section flexible">
+        <h3>Game: main</h3>
+        <div id="canvas"></div>
+    </div>
+
+    <footer class="container">
+        <div class="row mt-3 p-3">
+            <small class="mx-auto">Created by | Olivabigyo</small>
+        </div>
+    </footer>
+
+
+    <!-- jquery cdn -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+        integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+        crossorigin="anonymous"></script>
+    <!-- Bootstrap js plugins cdn -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.min.js"
+        integrity="sha512-8qmis31OQi6hIRgvkht0s6mCOittjMa9GMqtK9hes5iEQBQE/Ca6yGE5FsW36vyipGoWQswBj/QBm2JR086Rkw=="
+        crossorigin="anonymous"></script>
+    <!-- Script -->
+    <script src="code.js"></script>
+
+</body>
+
+</html>
