@@ -3,35 +3,36 @@ const nullTile = { image: '', connections: '0000', rotation: 0 };
 let game = {};
 const apiEndpoint = 'http://localhost/miniloz/backend/server.php';
 
-async function getRoom() {
-    // console.log('Requesting new room from server...');
+async function sendRequest(action, payload) {
 
     try {
-        const request = await fetch(apiEndpoint);
+        const request = await fetch(apiEndpoint, {
+            method:'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ action, payload })
+        });
 
         if (request.status != 200) {
-            console.log('Fetch bad status: ' + request.status);
-            return;
+            throw Error('Fetch bad status: ' + request.status);
         }
 
         const data = await request.json();
 
         if (!data.ok) {
-            console.log('Server returned error: ' + data.error);
-            return;
+            throw Error('Server returned error: ' + data.error);
         }
 
         console.log('Successful request.', data);
-
-        game = data.room.game;
-        init();
+        return data;
 
     } catch (err) {
-        console.log(err);
+        console.error(err);
     }
 }
 
-getRoom();
+// getRoom();
 
 // This is a 4x4 room for the first prototype before writing getRoom and without the serverside createRoom:
 // The directions in the connections-string are: up, right, down, left
@@ -218,3 +219,21 @@ function selectSection(event) {
 for (const elem of document.querySelectorAll('a[data-go]')) {
     elem.addEventListener('click', selectSection);
 }
+
+const newRoomForm = document.getElementById('submitNewRoom');
+newRoomForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const name = document.getElementById('roomname').value;
+    const size = document.getElementById('roomsize').value;
+    const density = document.getElementById('roomdensity').value;
+    console.log(name, size, density);
+
+    const data = await sendRequest('getNewRoom', {name, size, density});
+    if (!data) {
+        // TODO: kiirni ezt a hibat
+        return;
+    }
+    game = data.room.game;
+    init();
+    makeActive(sectionDict.game);
+});

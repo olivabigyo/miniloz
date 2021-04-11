@@ -44,7 +44,7 @@
         </div>
     </nav>
 
-    <div class="section home-section active flexible">
+    <div class="section home-section flexible">
         <h2>Rooms of Loops</h2>
         <div class="container">
             <div class="row">
@@ -253,22 +253,23 @@
                         </tbody>
                     </table>
                     <p>Want a new one?</p>
-                    <a href="room-generator.html" class="btn btn-theme btn-block">Room Generator</a>
+                    <a href="room-generator.html" data-go="roomGenerator" class="btn btn-theme btn-block">Room
+                        Generator</a>
                 </div>
             </div>
         </div>
     </div>
 
 
-    <div class="section room-generator-section flexible">
+    <div class="section room-generator-section flexible active">
         <h2>Room Generator</h2>
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 mx-auto">
-                    <form action="room" method="post">
+                    <form action="" id="submitNewRoom">
                         <div class="form-group">
                             <label for="roomname"><span class="">Name of the Room:</span></label>
-                            <input type="text" class="form-control" name="Roomname" id="roomname" value="Main">
+                            <input type="text" class="form-control" name="RoomName" id="roomname" value="Main">
                         </div>
                         <div class="form-group">
                             <label for="roomsize"><span>Size of the Room:</span></label>
@@ -278,8 +279,8 @@
                             <label for="roomdensity"><span>Density of the Room:</span></label>
                             <input type="number" class="form-control" name="RoomDensity" id="roomdensity" value="0.65">
                         </div>
-                        <!-- <input type="submit" name="Submit" class="btn btn-theme btn-block mb-3" value="Create Room"> -->
-                        <a href="game.html" class="btn btn-theme btn-block mb-3">Create Room</a>
+                        <input type="submit" name="Submit" class="btn btn-theme btn-block mb-3" value="Create Room">
+                        <!-- <a href="game.html" class="btn btn-theme btn-block mb-3">Create Room</a> -->
                     </form>
                 </div>
             </div>
