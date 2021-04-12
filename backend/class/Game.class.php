@@ -71,7 +71,7 @@ class Game implements JsonSerializable
         foreach ($this->tiles as $tilesRow) {
             $row = array();
             foreach ($tilesRow as $tile) {
-                $row[] = $tile->export();
+                $row[] = $tile->jsonSerialize();
             }
             $tiles[] = $row;
         }
