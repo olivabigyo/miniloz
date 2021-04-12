@@ -89,3 +89,23 @@ h3 {
 .section.active {
     display: block;
 }
+
+#chatbox #messages {
+    overflow-y: scroll;
+    max-height: 200px;
+}
+
+#chatbox .message {
+    font-family: 'Quicksand', sans-serif;
+    padding: 0.5rem;
+    margin-right: 2px;
+    border-radius: 4px;
+    background-color: white;
+    margin-bottom: 5px;
+}
+
+#chatbox input {
+    padding: 0.6rem;
+    margin-bottom: 2px;
+    border: none;
+}

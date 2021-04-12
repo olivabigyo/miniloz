@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile - RoL</title>
+    <title>Rooms of Loops</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap" rel="stylesheet">
@@ -108,7 +108,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
-                                <input type="text" class="form-control"  id="usernameSignup">
+                                <input type="text" class="form-control" id="usernameSignup">
                             </div>
                         </div>
                         <div class="form-group">
@@ -289,6 +289,25 @@
         <div id="canvas"></div>
     </div>
 
+    <div class="container flexible">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3 mx-auto boxes" id="chatbox">
+                <h2>Let's chat</h2>
+                <div id="messages" class="mb-2"></div>
+                <form id="form" action="">
+                    <div class="form-group">
+                        <input type="text" id="name" value="name">
+                        <input type="text" id="message" placeholder="type message here">
+                    </div>
+                    <button type="submit" class="btn btn-theme btn-block">Send <i
+                            class="fas fa-arrow-right"></i></button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
     <footer class="container">
         <div class="row mt-3 p-3">
             <small class="mx-auto">Created by | Olivabigyo</small>
@@ -306,6 +325,7 @@
         crossorigin="anonymous"></script>
     <!-- Script -->
     <script src="js/code.js"></script>
+    <script src="js/chat.js"></script>
 
 </body>
 
