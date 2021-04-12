@@ -1,5 +1,5 @@
 <?php
-class Tile
+class Tile implements JsonSerializable
 {
     // We use this templates to define the room tiles from the random generated wall connections
     static private $templates = array(
@@ -38,7 +38,7 @@ class Tile
         $this->rot = rand(0, 3);
     }
 
-    public function export()
+    public function jsonSerialize()
     {
         return array(
             'image' => $this->image,

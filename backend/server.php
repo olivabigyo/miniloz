@@ -43,6 +43,6 @@ echo json_encode(array(
     'room' => array(
         'id' => 1,
         'name' => 'main',
-        'game' => $game->export()
+        'game' => $game
     )
 ));

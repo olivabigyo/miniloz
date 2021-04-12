@@ -1,7 +1,7 @@
 <?php
 require_once 'Tile.class.php';
 
-class Game
+class Game implements JsonSerializable
 {
     private $w;
     private $h;
@@ -65,7 +65,7 @@ class Game
         return new Game($w, $h, $tiles);
     }
 
-    public function export()
+    public function jsonSerialize()
     {
         $tiles = array();
         foreach ($this->tiles as $tilesRow) {
