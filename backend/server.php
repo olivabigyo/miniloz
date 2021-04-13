@@ -3,6 +3,7 @@ require_once 'request_init.php';
 
 require_once 'load.php';
 require_once 'class/Game.class.php';
+require_once 'class/User.class.php';
 
 if ($action === 'getNewRoom') {
     $w = $payload->size;
@@ -21,4 +22,14 @@ if ($action === 'getNewRoom') {
             'game' => $game
         )
     ));
+}
+if ($action === 'createUser') {
+    try {
+        echo json_encode(array(
+            'ok'=> true,
+            'result' => User::createUser($payload)
+        ));
+    } catch (Exception $e) {
+        exitWithError($e->getMessage());
+    }
 }
