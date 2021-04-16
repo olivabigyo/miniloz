@@ -10,7 +10,8 @@ async function sendRequest(action, payload) {
 
     try {
         const request = await fetch(apiEndpoint, {
-            method:'POST',
+            method: 'POST',
+            // credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -153,21 +154,109 @@ function isConnected(tile) {
     }
 }
 
+// ******************************************************************
+// ******************************************************************
 
-// ********************************
+// ------------------------------------------------------------------
+// Update chat messages
+// --------------------
+
+// fetch messages from the server then repopulate the site
+async function getMessages() {
+    const data = await sendRequest('getMessages', {});
+    updateMessages(data.messages);
+}
+
+function updateMessages(messages) {
+    const messageBox = document.getElementById('messages');
+    // empty the box
+    messageBox.innerHTML = '';
+    for (const message of messages) {
+        // create new divs
+        const newMessage = document.createElement('div');
+        newMessage.classList.add('message');
+        // fill up with messages
+        newMessage.innerText = message.name + ': ' + message.content;
+        // place it in the DOM
+        messageBox.appendChild(newMessage);
+    }
+    // We have a fix-height box for the messages and
+    // we want to see the newest ones, which are at the bottom
+    messageBox.scrollTop = messageBox.scrollHeight;
+}
+
+getMessages();
+// We want to update in every 15 seconds
+setInterval(getMessages, 15000);
+
+
+// ------------------------------------------------------------------
+// Submit the message
+// ----------------------
+
+async function addMessage(event) {
+    // async function, we don't want to reload the site
+    event.preventDefault();
+    // save name in localstorage
+    // yes, this is a tiny app without login for now
+    saveName();
+    const name = document.getElementById('name');
+    const message = document.getElementById('message');
+    // we log everything to the logs panel to learn and understand more :)
+    console.log(`Sending new message from ${name.value}: ${message.value}`);
+    // this is our async request
+    const reply = await sendRequest('addMessage', {name: name.value, content: message.value});
+    if (reply) {
+        console.log('Message successfully sent.');
+        message.value = '';
+        // we repopulate the site and don't wait for the automatic repopulation which only happens in every 2 seconds
+        getMessages();
+    }
+}
+
+// ------------------------------------------------------------------
+// Event Listener
+// -------------------------
+
+document.getElementById('chatform').addEventListener('submit', addMessage);
+
+// ------------------------------------------------------------------
+// Save name in localStorage
+// -------------------------
+
+function saveName() {
+    const name = document.getElementById('name');
+    localStorage.setItem('letsChatName', name.value);
+}
+
+document.getElementById('name').addEventListener('blur', saveName);
+
+function restoreName() {
+    const name = localStorage.getItem('letsChatName');
+    if (!name) return;
+    const nameElem = document.getElementById('name');
+    nameElem.value = name;
+}
+// TODO: move to init()
+restoreName();
+// TODO: move to init()
+document.getElementById('message').focus();
+
+// ******************************************************************
+// ******************************************************************
 
 
 const sections = document.querySelectorAll('.section');
 
 const sectionDict = {
-    home:           document.querySelector('.home-section'),
-    login:          document.querySelector('.login-section'),
-    signup:         document.querySelector('.signup-section'),
-    profile:        document.querySelector('.profile-section'),
-    password:       document.querySelector('.password-section'),
-    rooms:          document.querySelector('.rooms-section'),
-    roomGenerator:  document.querySelector('.room-generator-section'),
-    game:           document.querySelector('.game-section'),
+    home: document.querySelector('.home-section'),
+    login: document.querySelector('.login-section'),
+    signup: document.querySelector('.signup-section'),
+    profile: document.querySelector('.profile-section'),
+    password: document.querySelector('.password-section'),
+    rooms: document.querySelector('.rooms-section'),
+    roomGenerator: document.querySelector('.room-generator-section'),
+    game: document.querySelector('.game-section'),
 };
 
 function makeActive(selected) {
@@ -196,7 +285,7 @@ newRoomForm.addEventListener('submit', async (event) => {
     const density = document.getElementById('roomdensity').value;
     console.log(name, size, density);
 
-    const data = await sendRequest('getNewRoom', {name, size, density});
+    const data = await sendRequest('getNewRoom', { name, size, density });
     if (!data) {
         // TODO: kiirni ezt a hibat
         return;
@@ -213,18 +302,20 @@ loginForm.addEventListener('submit', async (event) => {
     const pwd = document.getElementById('password').value;
     console.log(name, pwd);
 
-    const data = await sendRequest('attemptLogin', {name, pwd});
+    const data = await sendRequest('login', { name, pwd });
 });
 
 const signupForm = document.getElementById('submitSignup');
 signupForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     const name = document.getElementById('usernameSignup').value;
-    const pwd = document.getElementById('passwordSignup').value;
+    const password = document.getElementById('passwordSignup').value;
     const pwd2 = document.getElementById('passwordSignupRep').value;
-    console.log(name, pwd, pwd2);
+    // TODO: validate
+    // TODO: username exist on the flight validate
+    console.log(name, password, pwd2);
 
-    const data = await sendRequest('submitSignup', {name, pwd});
+    const data = await sendRequest('createUser', { name, password });
 });
 
 const passwordForm = document.getElementById('submitPassword');
@@ -236,5 +327,5 @@ passwordForm.addEventListener('submit', async (event) => {
     const newpwd2 = document.getElementById('passwordNewRep').value;
     console.log(name, pwd, newpwd, newpwd2);
 
-    const data = await sendRequest('changePassword', {name, pwd, newpwd, newpwd2});
+    const data = await sendRequest('changePassword', { name, pwd, newpwd, newpwd2 });
 });

@@ -32,7 +32,7 @@ $validActions = array(
     'createUser',
     // chat
     'getMessages',
-    'addMesage',
+    'addMessage',
     // game
     'getNewRoom',
 );
