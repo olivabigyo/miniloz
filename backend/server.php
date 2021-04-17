@@ -6,23 +6,7 @@ require_once 'class/Game.class.php';
 require_once 'class/User.class.php';
 require_once 'class/Chat.class.php';
 
-if ($action === 'getNewRoom') {
-    $w = $payload->size;
-    $h = $w;
-    $density = $payload->density;
-
-    $game = Game::generate($w, $h, $density);
-
-    // Our server response
-    echo json_encode(array(
-        'ok' => true,
-        'room' => array(
-            'id' => 1,
-            'name' => 'main',
-            'game' => $game
-        )
-    ));
-}
+// User stuff
 if ($action === 'createUser') {
     try {
         echo json_encode(array(
@@ -34,6 +18,54 @@ if ($action === 'createUser') {
     }
 }
 
+if ($action === 'login') {
+    try {
+        echo json_encode(array(
+            'ok' => true,
+            'user' => User::login($payload)
+        ));
+    } catch (Exception $e) {
+        exitWithError($e->getMessage());
+    }
+}
+
+if ($action === 'logout') {
+    try {
+        User::logout();
+        echo json_encode(array(
+            'ok' => true
+        ));
+    } catch (Exception $e) {
+        exitWithError($e->getMessage());
+    }
+}
+
+// Game stuff
+if ($action === 'getNewRoom') {
+    try {
+        $user = User::requireLogin();
+
+        $w = $payload->size;
+        $h = $w;
+        $density = $payload->density;
+
+        $game = Game::generate($w, $h, $density);
+
+        // Our server response
+        echo json_encode(array(
+            'ok' => true,
+            'room' => array(
+                'id' => 1,
+                'name' => 'main',
+                'game' => $game
+            )
+        ));
+    } catch (Exception $e) {
+        exitWithError($e->getMessage());
+    }
+}
+
+// Chat stuff
 if ($action === 'getMessages') {
     try {
         echo json_encode([

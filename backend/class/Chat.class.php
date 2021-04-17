@@ -1,5 +1,6 @@
 <?php
-require_once '../functions.php';
+// TODO: why? how? wtf?
+require_once 'functions.php';
 
 class Chat
 {

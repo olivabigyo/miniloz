@@ -29,6 +29,7 @@ $payload = $request->payload;
 $validActions = array(
     // user handling
     'login',
+    'logout',
     'createUser',
     // chat
     'getMessages',

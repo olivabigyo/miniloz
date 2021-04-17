@@ -3,8 +3,8 @@
 const playground = document.getElementById('canvas')
 const nullTile = { image: '', connections: '0000', rotation: 0 };
 let game = {};
-// const apiEndpoint = 'http://localhost/miniloz/backend/server.php';
-const apiEndpoint = 'https://amongus.olivabigyo.site/loops-backend/server.php';
+const apiEndpoint = 'http://localhost/miniloz/backend/server.php';
+// const apiEndpoint = 'https://amongus.olivabigyo.site/loops-backend/server.php';
 
 async function sendRequest(action, payload) {
 
@@ -187,7 +187,7 @@ function updateMessages(messages) {
 
 getMessages();
 // We want to update in every 15 seconds
-setInterval(getMessages, 15000);
+setInterval(getMessages, 60000);
 
 
 // ------------------------------------------------------------------
@@ -300,10 +300,16 @@ const loginForm = document.getElementById('submitLogin');
 loginForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     const name = document.getElementById('username').value;
-    const pwd = document.getElementById('password').value;
-    console.log(name, pwd);
+    const password = document.getElementById('password').value;
 
-    const data = await sendRequest('login', { name, pwd });
+    const data = await sendRequest('login', { name, password });
+});
+
+const logoutButton = document.getElementById('logout');
+logoutButton.addEventListener('click', async (event) => {
+    event.preventDefault();
+    const data = await sendRequest('logout', {});
+    makeActive(sectionDict['home']);
 });
 
 const signupForm = document.getElementById('submitSignup');
