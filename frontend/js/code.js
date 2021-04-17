@@ -239,8 +239,8 @@ function restoreName() {
 }
 // TODO: move to init()
 restoreName();
-// TODO: move to init()
-document.getElementById('message').focus();
+// TODO: do something else?
+// document.getElementById('message').focus();
 
 // ******************************************************************
 // ******************************************************************
@@ -253,6 +253,7 @@ const sectionDict = {
     login: document.querySelector('.login-section'),
     signup: document.querySelector('.signup-section'),
     profile: document.querySelector('.profile-section'),
+    colors: document.querySelector('.colors-section'),
     password: document.querySelector('.password-section'),
     rooms: document.querySelector('.rooms-section'),
     roomGenerator: document.querySelector('.room-generator-section'),

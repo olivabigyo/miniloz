@@ -44,17 +44,15 @@
         </div>
     </nav>
 
-    <div class="section home-section flexible active">
+    <div class="section home-section flexible">
         <h2>Rooms of Loops</h2>
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 mx-auto">
-                    <a href="#" class="btn btn-theme btn-block mb-4" data-go="login">
-                        <i class="fas fa-user"></i> Login
+                    <a href="#" class="btn btn-theme btn-block mb-4" data-go="login"> Login
                     </a>
                     <p>Not user yet?</p>
-                    <a href="#" class="btn btn-theme btn-block mb-4" data-go="signup">
-                        <i class="fas fa-pen"></i> Sign up
+                    <a href="#" class="btn btn-theme btn-block mb-4" data-go="signup"> Sign up
                     </a>
                     <!-- <a href="#" class="btn btn-theme btn-block" data-go="about">
                         <i class="fas fa-book"></i> About
@@ -69,6 +67,8 @@
         <div class="container">
             <div class="row mt-4">
                 <div class="col-lg-4 mx-auto">
+                    <div class="feedback error mb-2">Something went wrong!</div>
+                    <div class="feedback success mb-2">Success. Gratuliere!</div>
                     <form action="" id="submitLogin">
                         <div class="form-group">
                             <label for="username"><span class="">Username:</span></label>
@@ -101,6 +101,8 @@
         <div class="container">
             <div class="row mt-4">
                 <div class="col-lg-4 mx-auto">
+                    <div class="feedback error mb-2">Something went wrong!</div>
+                    <div class="feedback success mb-2">Success. Gratuliere!</div>
                     <form action="" id="submitSignup">
                         <div class="form-group">
                             <label for="usernameSignup"><span class="">Username:</span></label>
@@ -142,12 +144,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 mx-auto">
-                    <!-- <a href="myrooms.html" class="btn btn-theme btn-block mb-4">
-                        <i class="fas fa-pen"></i> My rooms
+                    <a href="#" class="btn btn-theme btn-block mb-4" data-go="colors">
+                        <i class="fas fa-pen"></i> Colors
                     </a>
                     <a href="friends.html" class="btn btn-theme btn-block mb-4">
                         <i class="fas fa-user"></i> Friends
-                    </a> -->
+                    </a>
                     <a href="#" class="btn btn-theme btn-block" data-go="password">
                         <i class="fas fa-key"></i> Change Password
                     </a>
@@ -156,11 +158,34 @@
         </div>
     </div>
 
+    <div class="section colors-section flexible">
+        <h2>Color settings</h2>
+        <div class="container">
+            <div class="row mt-4">
+                <div class="col-lg-4 mx-auto">
+                    <form action="" id="colorSettings">
+                        <div class="form-group">
+                            <label for="color"><span class="">Choose theme:</span></label>
+                            <select class="form-control" name="color" id="color">
+                                <option value="">Dark</option>
+                                <option value="">Light</option>
+                                <option value="">Red</option>
+                                <option value="">Blue</option>
+                            </select>
+                        </div>
+                        <input type="submit" class="btn btn-theme btn-block mb-3" value="Save">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="section password-section flexible">
         <h2>Password</h2>
         <div class="container">
             <div class="row mt-4">
                 <div class="col-lg-4 mx-auto">
+                    <div class="feedback error mb-2">Something went wrong!</div>
+                    <div class="feedback success mb-2">Success. Gratuliere!</div>
                     <form action="" id="submitPassword">
                         <div class="form-group">
                             <label for="usernameEx"><span class="">Username:</span></label>
@@ -210,6 +235,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 mx-auto">
+                    <div class="feedback error mb-2">Something went wrong!</div>
+                    <div class="feedback success mb-2">Success. Gratuliere!</div>
                     <table class="table">
                         <thead>
                             <tr>
@@ -259,11 +286,13 @@
     </div>
 
 
-    <div class="section room-generator-section flexible">
+    <div class="section room-generator-section flexible active">
         <h2>Room Generator</h2>
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 mx-auto">
+                    <div class="feedback error mb-2">Something went wrong!</div>
+                    <div class="feedback success mb-2">Success. Gratuliere!</div>
                     <form action="" id="submitNewRoom">
                         <div class="form-group">
                             <label for="roomname"><span class="">Name of the Room:</span></label>
@@ -271,7 +300,7 @@
                         </div>
                         <div class="form-group">
                             <label for="roomsize"><span>Size of the Room:</span></label>
-                            <input type="number" class="form-control" name="RoomSize" id="roomsize" value="8">
+                            <input type="number" class="form-control" name="RoomSize" id="roomsize" value="3">
                         </div>
                         <div class="form-group">
                             <label for="roomdensity"><span>Density of the Room:</span></label>
@@ -294,13 +323,14 @@
             <div class="col-lg-6 offset-lg-3 mx-auto boxes" id="chatbox">
                 <h2>Let's chat</h2>
                 <div id="messages" class="mb-2"></div>
-                <form id="form" action="">
+                <form id="chatform" action="">
                     <div class="form-group">
                         <input type="text" id="name" value="name">
                         <input type="text" id="message" placeholder="type message here">
                     </div>
-                    <button type="submit" class="btn btn-theme btn-block">Send <i
-                            class="fas fa-arrow-right"></i></button>
+                    <button type="submit" class="btn btn-theme btn-block">
+                        Send <i class="fas fa-arrow-right"></i>
+                    </button>
 
                 </form>
             </div>
@@ -325,7 +355,6 @@
         crossorigin="anonymous"></script>
     <!-- Script -->
     <script src="js/code.js"></script>
-    <script src="js/chat.js"></script>
 
 </body>
 
