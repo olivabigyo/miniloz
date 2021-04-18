@@ -3,8 +3,9 @@
 import { sendRequest } from './request.js';
 import { initChat } from './chat.js';
 import { startGame } from './game.js';
-import { go } from './navi.js';
+import { go, initSectionFromHash } from './navi.js';
 
+initSectionFromHash();
 initChat();
 
 // ******************************************************************
