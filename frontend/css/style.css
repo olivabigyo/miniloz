@@ -46,6 +46,10 @@ footer {
     flex-shrink: 0;
 }
 
+nav {
+    background-color: #f0f0f0;
+}
+
 .navbar-toggler, .navbar-toggler-icon {
     color: black;
 }
@@ -86,7 +90,7 @@ h3 {
 }
 
 .section {
-    /* display: none; */
+    display: none;
 }
 
 .section.active {

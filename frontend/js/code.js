@@ -1,8 +1,13 @@
 'use strict';
 
-const playground = document.getElementById('canvas')
-const nullTile = { image: '', connections: '0000', rotation: 0 };
-let game = {};
+// ******************************************************************
+// ************************* THE REQUEST ****************************
+// ******************************************************************
+
+// ------------------------------------------------------------------
+// Server requests
+// --------------------
+
 const apiEndpoint = 'http://localhost/miniloz/backend/server.php';
 // const apiEndpoint = 'https://amongus.olivabigyo.site/loops-backend/server.php';
 
@@ -36,11 +41,19 @@ async function sendRequest(action, payload) {
     }
 }
 
-// define the tile from position
-function getTile(r, c) {
-    return game.tiles[r][c];
-}
+// ******************************************************************
+// ************************ THE GAME ********************************
+// ******************************************************************
 
+// ------------------------------------------------------------------
+// Game handling
+// -------------
+
+const playground = document.getElementById('canvas')
+const nullTile = { image: '', connections: '0000', rotation: 0 };
+let game = {};
+
+// Initialize game from game object
 function init() {
     playground.innerHTML = "";
     let r = 0;
@@ -91,6 +104,11 @@ function checkConnections(tile) {
     isConnected(rightNeighbour(tile));
     isConnected(bottomNeighbour(tile));
     isConnected(leftNeighbour(tile));
+}
+
+// Define the tile from position
+function getTile(r, c) {
+    return game.tiles[r][c];
 }
 
 // Define neigbouring tiles
@@ -155,11 +173,13 @@ function isConnected(tile) {
 }
 
 // ******************************************************************
+// ************************* THE CHAT *******************************
 // ******************************************************************
+
 
 // ------------------------------------------------------------------
 // Update chat messages
-// --------------------
+// ------------------------------------------------------------------
 
 // fetch messages from the server then repopulate the site
 async function getMessages() {
@@ -186,7 +206,7 @@ function updateMessages(messages) {
 }
 
 getMessages();
-// We want to update in every 15 seconds
+// We want to update in every ... seconds
 setInterval(getMessages, 60000);
 
 
@@ -242,9 +262,14 @@ restoreName();
 // TODO: do something else?
 // document.getElementById('message').focus();
 
+
 // ******************************************************************
+// *********************** THE NAVIGATION ***************************
 // ******************************************************************
 
+// ------------------------------------------------------------------
+// Handling the <a> buttons on the site
+// ------------------------------------------------------------------
 
 const sections = document.querySelectorAll('.section');
 
@@ -278,6 +303,15 @@ for (const elem of document.querySelectorAll('a[data-go]')) {
     elem.addEventListener('click', selectSection);
 }
 
+// ******************************************************************
+// ******************** THE FORM SUBMITTING *************************
+// ******************************************************************
+
+// ------------------------------------------------------------------
+// Handling the submit buttons on the site
+// ------------------------------------------------------------------
+
+// Creating New Room
 const newRoomForm = document.getElementById('submitNewRoom');
 newRoomForm.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -296,6 +330,7 @@ newRoomForm.addEventListener('submit', async (event) => {
     makeActive(sectionDict.game);
 });
 
+// Login Form
 const loginForm = document.getElementById('submitLogin');
 loginForm.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -305,6 +340,7 @@ loginForm.addEventListener('submit', async (event) => {
     const data = await sendRequest('login', { name, password });
 });
 
+// Logout
 const logoutButton = document.getElementById('logout');
 logoutButton.addEventListener('click', async (event) => {
     event.preventDefault();
@@ -312,6 +348,7 @@ logoutButton.addEventListener('click', async (event) => {
     makeActive(sectionDict['home']);
 });
 
+// Sign up Form
 const signupForm = document.getElementById('submitSignup');
 signupForm.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -325,6 +362,7 @@ signupForm.addEventListener('submit', async (event) => {
     const data = await sendRequest('createUser', { name, password });
 });
 
+// Form for changing password
 const passwordForm = document.getElementById('submitPassword');
 passwordForm.addEventListener('submit', async (event) => {
     event.preventDefault();
