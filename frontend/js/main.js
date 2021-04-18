@@ -3,48 +3,9 @@
 import { sendRequest } from './request.js';
 import { initChat } from './chat.js';
 import { startGame } from './game.js';
+import { go } from './navi.js';
 
 initChat();
-
-// ******************************************************************
-// *********************** THE NAVIGATION ***************************
-// ******************************************************************
-
-// ------------------------------------------------------------------
-// Handling the <a> buttons on the site
-// ------------------------------------------------------------------
-
-const sections = document.querySelectorAll('.section');
-
-const sectionDict = {
-    home: document.querySelector('.home-section'),
-    login: document.querySelector('.login-section'),
-    signup: document.querySelector('.signup-section'),
-    profile: document.querySelector('.profile-section'),
-    colors: document.querySelector('.colors-section'),
-    password: document.querySelector('.password-section'),
-    rooms: document.querySelector('.rooms-section'),
-    roomGenerator: document.querySelector('.room-generator-section'),
-    game: document.querySelector('.game-section'),
-};
-
-function makeActive(selected) {
-    for (const section of sections) {
-        section.classList.remove('active');
-    }
-    selected.classList.add('active');
-}
-
-function selectSection(event) {
-    event.preventDefault();
-    // TODO: target??
-    const elem = event.target;
-    makeActive(sectionDict[elem.dataset.go]);
-}
-
-for (const elem of document.querySelectorAll('a[data-go]')) {
-    elem.addEventListener('click', selectSection);
-}
 
 // ******************************************************************
 // ******************** THE FORM SUBMITTING *************************
@@ -69,7 +30,7 @@ newRoomForm.addEventListener('submit', async (event) => {
         return;
     }
     startGame(data.room.game);
-    makeActive(sectionDict.game);
+    go('game');
 });
 
 // Login Form
@@ -87,7 +48,7 @@ const logoutButton = document.getElementById('logout');
 logoutButton.addEventListener('click', async (event) => {
     event.preventDefault();
     const data = await sendRequest('logout', {});
-    makeActive(sectionDict['home']);
+    go('home');
 });
 
 // Sign up Form
