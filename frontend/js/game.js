@@ -4,7 +4,9 @@
 // ************************ THE GAME ********************************
 // ******************************************************************
 
-const playground = document.getElementById('canvas')
+const playground = document.getElementById('canvas');
+// We use the null tile as imaginary neighbour for the tiles on the edges
+// We need this for checking if the tile is connected on each side to the neighbours
 const nullTile = { image: '', connections: '0000', rotation: 0 };
 let game = {};
 

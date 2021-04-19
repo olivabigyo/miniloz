@@ -32,7 +32,6 @@ class User implements JsonSerializable
             'SELECT * FROM user WHERE username = ?',
             [$payload->name]
         );
-        // Ha nincs? Exception vagy false?
         $row = $stmt->fetch();
         if (!$row) {
             throw new Exception('No such user');
@@ -51,7 +50,7 @@ class User implements JsonSerializable
         // Destroy the cookie
         $params = session_get_cookie_params();
         setcookie(session_name(), '', time() - 3600, $params['path'], $params['domain'], $params['secure'], isset($params['httponly']));
-
+        // Terminate the session
         session_destroy();
         session_write_close();
     }

@@ -19,7 +19,7 @@ class DB extends PDO
 
     // CRUD
 
-    // returns the executed sql query with given values
+    // Returns the executed sql query with given values
     function executeQuery($query, $params = null)
     {
         $stmt = $this->prepare($query);
@@ -27,13 +27,14 @@ class DB extends PDO
         return $stmt;
     }
 
-    // returns the result of a simple (result is one row, one column) query
+    // Returns the result of a simple (result is one row, one column) query
     function simpleQuery($query, $params = null)
     {
         $stmt = $this->executeQuery($query, $params);
         return $stmt->fetchColumn();
     }
 
+    // Insert into table
     // $data should be an associative array with keys being valid column names
     // Only string values are supported (non-strings will be converted to strings with the default string conversion)
     public function insert($table, $data)

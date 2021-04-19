@@ -44,13 +44,11 @@ async function addMessage(event) {
     // async function, we don't want to reload the site
     event.preventDefault();
     // save name in localstorage
-    // yes, this is a tiny app without login for now
     saveName();
     const name = document.getElementById('name');
     const message = document.getElementById('message');
-    // we log everything to the logs panel to learn and understand more :)
-    console.log(`Sending new message from ${name.value}: ${message.value}`);
-    // this is our async request
+    // console.log(`Sending new message from ${name.value}: ${message.value}`);
+
     const reply = await sendRequest('addMessage', {name: name.value, content: message.value});
     if (reply) {
         console.log('Message successfully sent.');

@@ -4,6 +4,11 @@
 // *********************** THE NAVIGATION ***************************
 // ******************************************************************
 
+// This is a single page application
+// Only the active section is displayed on the page
+// By navigating on the site the active section name is pushed to the history
+// The name of the active section is displayed in the url
+
 const sections = document.querySelectorAll('.section');
 const sectionDict = {};
 

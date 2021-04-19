@@ -42,6 +42,7 @@ loginForm.addEventListener('submit', async (event) => {
     const password = document.getElementById('password').value;
 
     const data = await sendRequest('login', { name, password });
+    // if (data.ok) { go('rooms') } else { display error message...};
 });
 
 // Logout
@@ -64,6 +65,8 @@ signupForm.addEventListener('submit', async (event) => {
     console.log(name, password, pwd2);
 
     const data = await sendRequest('createUser', { name, password });
+    // if (data.ok) { go('rooms') } else { display error message...};
+
 });
 
 // Form for changing password
@@ -74,6 +77,7 @@ passwordForm.addEventListener('submit', async (event) => {
     const pwd = document.getElementById('passwordEx').value;
     const newpwd = document.getElementById('passwordNew').value;
     const newpwd2 = document.getElementById('passwordNewRep').value;
+    // TODO: validate
     console.log(name, pwd, newpwd, newpwd2);
 
     const data = await sendRequest('changePassword', { name, pwd, newpwd, newpwd2 });

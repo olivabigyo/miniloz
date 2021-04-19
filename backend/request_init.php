@@ -22,6 +22,7 @@ if ($method !== 'POST') {
     exitWithError('Only POST requests allowed');
 }
 
+// Parse the client request.
 $request = json_decode(file_get_contents('php://input'));
 $action = $request->action;
 $payload = $request->payload;

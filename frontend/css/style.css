@@ -130,3 +130,7 @@ h3 {
     margin-bottom: 2px;
     border: none;
 }
+
+.hidden {
+    display: none;
+}

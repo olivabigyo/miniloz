@@ -2,6 +2,7 @@
 class Tile implements JsonSerializable
 {
     // We use this templates to define the room tiles from the random generated wall connections
+    // The connection string represents the connection of the tile in top-right-bottom-left order
     static private $templates = array(
         '0000' => array('image' => 'null.svg', 'connections' => '0000'),
         '0001' => array('image' => 'one.svg', 'connections' => '0100'),

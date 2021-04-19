@@ -48,6 +48,7 @@ class Game implements JsonSerializable
             $row = array();
             for ($c = 0; $c < $w; $c++) {
                 // The tile connections-string comes from the vertical and horizontal collection of walls
+                // It represents the connection of the tile in top-right-bottom-left order
                 $t = '';
                 $t .= $hWalls[$r][$c];
                 $t .= $vWalls[$r][$c + 1];

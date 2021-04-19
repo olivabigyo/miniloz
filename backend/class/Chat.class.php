@@ -13,7 +13,7 @@ class Chat
         while ($row = $stmt->fetch()) {
             // we want to save the fetched rows in reverse order
             // so it is easy to display the newest chat message last at the bottom of the chat app
-            // Option: we could have handle this clientside in the code.js reversing the response array
+            // Option: we could have handle this clientside reversing the response array
             // in that case it would be here a simple: $messages[]=$row; without unshift
             array_unshift($messages, $row);
         }
