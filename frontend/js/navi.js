@@ -40,8 +40,11 @@ export function go(sectionName, replace) {
 }
 
 window.addEventListener('popstate', (event) => {
-    // console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
-    makeActive(event?.state?.section || 'home');
+    if (event?.state?.section) {
+        makeActive(event.state.section);
+    } else {
+        makeActive(loggedIn() ? 'rooms' : 'home');
+    }
 });
 
 export function initSectionFromHash(loggedIn) {
