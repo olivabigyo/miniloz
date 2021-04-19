@@ -35,10 +35,12 @@ function handleRequest($action, $payload)
     $user = User::requireLogin();
 
     // Game stuff
-    if ($action === 'getNewRoom') {
-        $room = Room::createRoom($user, $payload);
+    if ($action === 'listRooms') {
+        return ['rooms' => Room::listRooms()];
+    }
 
-        return ['room' => $room];
+    if ($action === 'getNewRoom') {
+        return ['room' => Room::createRoom($user, $payload)];
     }
 
     // Chat stuff

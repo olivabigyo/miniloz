@@ -37,6 +37,7 @@ $validActions = array(
     'getMessages',
     'addMessage',
     // game
+    'listRooms',
     'getNewRoom',
 );
 

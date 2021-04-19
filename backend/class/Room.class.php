@@ -64,7 +64,8 @@ class Room implements JsonSerializable
         $params = ['size' => $payload->size, 'density' => $density];
 
         $stmt = globalDB()->prepare(
-            'INSERT INTO rooms (name, creator, params, modified, moveCount, game) VALUES (:name, :creator, :params, :modified, :moveCount, :game)'
+            'INSERT INTO rooms (name, creator, params, modified, moveCount, game)
+               VALUES (:name, :creator, :params, :modified, :moveCount, :game)'
         );
         $stmt->bindValue(':name', $payload->name);
         $stmt->bindValue(':creator', $user->getId());
@@ -76,5 +77,29 @@ class Room implements JsonSerializable
         $id = globalDB()->lastInsertId();
 
         return Room::getRoom($id);
+    }
+
+    public static function listRooms() {
+        $rooms = [];
+
+        $stmt = globalDB()->executeQuery(
+            'SELECT rooms.id, name, creator, params, modified, user.username
+               FROM rooms JOIN user ON user.id = rooms.creator
+               ORDER BY modified DESC LIMIT 10'
+        );
+
+        while ($row = $stmt->fetch()) {
+            $user = new User($row->creator, $row->username);
+            $params = json_decode($row->params);
+            $rooms[] = [
+                'id' => $row->id,
+                'name' => $row->name,
+                'size' => $params->size,
+                'modified' => $row->modified,
+                'user' => $user,
+            ];
+        }
+
+        return $rooms;
     }
 }
