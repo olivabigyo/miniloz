@@ -27,20 +27,22 @@
     <nav class="navbar navbar-expand-md navbar-light sticky-top">
         <div class="container">
             <a href="#" class="navbar-brand" data-go="rooms">Rooms of Loops</a>
-            <button class="navbar-toggler" data-toggle="collapse" data-target="#navbar-toggler">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbar-toggler">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a href="#" data-go="profile" class="nav-link">
-                            <i class="fas fa-user-cog"></i> Profile
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" id="logout" class="nav-link"><i class="fas fa-user"></i> Logout</a>
-                    </li>
-                </ul>
+            <div id="nav-right" class="hidden">
+                <button class="navbar-toggler" data-toggle="collapse" data-target="#navbar-toggler">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbar-toggler">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" data-go="profile" class="nav-link">
+                                <i class="fas fa-user-cog"></i> <span id="profile-name">Profile</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" id="logout" class="nav-link"><i class="fas fa-user"></i> Logout</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </nav>
@@ -319,7 +321,7 @@
         <div id="canvas"></div>
     </div>
 
-    <div class="container flexible">
+    <div id="lets-chat" class="container flexible hidden">
         <div class="row">
             <div class="col-lg-6 offset-lg-3 mx-auto boxes" id="chatbox">
                 <h2>Let's chat</h2>

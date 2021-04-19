@@ -30,6 +30,7 @@ $payload = $request->payload;
 $validActions = array(
     // user handling
     'login',
+    'checkLogin',
     'logout',
     'createUser',
     // chat

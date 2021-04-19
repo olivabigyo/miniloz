@@ -17,6 +17,15 @@ function handleRequest($action, $payload)
         return ['user' => User::login($payload)];
     }
 
+    if ($action === 'checkLogin') {
+        $maybeUser = User::checkLogin();
+        if ($maybeUser) {
+            return ['loggedIn' => true, 'user' => $maybeUser];
+        } else {
+            return ['loggedIn' => false];
+        }
+    }
+
     if ($action === 'logout') {
         User::logout();
         return [];

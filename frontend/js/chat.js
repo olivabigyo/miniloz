@@ -78,7 +78,9 @@ function restoreName() {
 // Initializing the chat module
 // -------------------------
 
-export function initChat() {
+export function startChat() {
+    document.getElementById('lets-chat').classList.remove('hidden');
+
     getMessages();
     // We want to update in every ... seconds
     setInterval(getMessages, 60000);

@@ -63,6 +63,14 @@ class User implements JsonSerializable
         return new User($_SESSION['userId'], $_SESSION['user']);
     }
 
+    public static function checkLogin()
+    {
+        if (!isset($_SESSION['user']) || !isset($_SESSION['userId'])) {
+            return false;
+        }
+        return new User($_SESSION['userId'], $_SESSION['user']);
+    }
+
     // public static function byId($id) {
     //     // from DB...
     // }

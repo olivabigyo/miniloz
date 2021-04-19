@@ -1,12 +1,12 @@
 'use strict';
 
 import { sendRequest } from './request.js';
-import { initChat } from './chat.js';
+import { initUserStuff } from './user.js';
 import { startGame } from './game.js';
 import { go, initSectionFromHash } from './navi.js';
 
 initSectionFromHash();
-initChat();
+initUserStuff();
 
 // ******************************************************************
 // ******************** THE FORM SUBMITTING *************************
