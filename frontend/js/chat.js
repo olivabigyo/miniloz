@@ -73,7 +73,7 @@ export function startChat() {
         clearInterval(messageChecker);
     }
     // We want to update in every ... seconds
-    messageChecker = setInterval(getMessages, 6000);
+    messageChecker = setInterval(getMessages, 60000);
 }
 
 export function stopChat() {

@@ -5,7 +5,7 @@ class User implements JsonSerializable
     private $id;
     private $name;
 
-    private function __construct($id, $name)
+    public function __construct($id, $name)
     {
         $this->id = $id;
         $this->name = $name;
@@ -14,6 +14,11 @@ class User implements JsonSerializable
     public function getName()
     {
         return $this->name;
+    }
+
+    public function getId()
+    {
+        return $this->id;
     }
 
     public function jsonSerialize()

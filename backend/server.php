@@ -2,7 +2,7 @@
 require_once 'request_init.php';
 
 require_once 'load.php';
-require_once 'class/Game.class.php';
+require_once 'class/Room.class.php';
 require_once 'class/User.class.php';
 require_once 'class/Chat.class.php';
 
@@ -36,17 +36,9 @@ function handleRequest($action, $payload)
 
     // Game stuff
     if ($action === 'getNewRoom') {
-        $w = $payload->size;
-        $h = $w;
-        $density = $payload->density;
+        $room = Room::createRoom($user, $payload);
 
-        $game = Game::generate($w, $h, $density);
-
-        return ['room' => [
-            'id' => 1,
-            'name' => 'main',
-            'game' => $game
-        ]];
+        return ['room' => $room];
     }
 
     // Chat stuff
