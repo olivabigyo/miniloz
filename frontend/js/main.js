@@ -1,12 +1,11 @@
 'use strict';
 
 import { sendRequest } from './request.js';
-import { initUserStuff } from './user.js';
+import * as User from './user.js';
 import { startGame } from './game.js';
-import { go, initSectionFromHash } from './navi.js';
+import { go } from './navi.js';
 
-initSectionFromHash();
-initUserStuff();
+User.initUserStuff();
 
 // ******************************************************************
 // ******************** THE FORM SUBMITTING *************************
@@ -39,10 +38,18 @@ const loginForm = document.getElementById('submitLogin');
 loginForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     const name = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
+    const passwordField = document.getElementById('password');
+    const password = passwordField.value;
 
     const data = await sendRequest('login', { name, password });
-    // if (data.ok) { go('rooms') } else { display error message...};
+    if (data) {
+        passwordField.value = '';
+        User.onLoggedIn(data.user);
+        go('rooms');
+    } else {
+        console.error('Login failed');
+        // display error message...
+    };
 });
 
 // Logout
@@ -50,6 +57,7 @@ const logoutButton = document.getElementById('logout');
 logoutButton.addEventListener('click', async (event) => {
     event.preventDefault();
     const data = await sendRequest('logout', {});
+    User.onLoggedOut();
     go('home');
 });
 

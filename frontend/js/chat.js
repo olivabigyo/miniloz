@@ -46,7 +46,7 @@ async function addMessage(event) {
     const message = document.getElementById('message');
     if (!message.value) return;
 
-    const reply = await sendRequest('addMessage', {content: message.value});
+    const reply = await sendRequest('addMessage', { content: message.value });
     if (reply) {
         // console.log('Message successfully sent.');
         message.value = '';
@@ -59,13 +59,26 @@ async function addMessage(event) {
 // Initializing the chat module
 // -------------------------
 
+// Event Listeners
+document.getElementById('chatform').addEventListener('submit', addMessage);
+
+let messageChecker;
+
 export function startChat() {
     document.getElementById('lets-chat').classList.remove('hidden');
 
     getMessages();
+    if (messageChecker) {
+        console.error('startChat was called while chat was already running!');
+        clearInterval(messageChecker);
+    }
     // We want to update in every ... seconds
-    setInterval(getMessages, 60000);
+    messageChecker = setInterval(getMessages, 6000);
+}
 
-    // Event Listeners
-    document.getElementById('chatform').addEventListener('submit', addMessage);
+export function stopChat() {
+    document.getElementById('lets-chat').classList.add('hidden');
+
+    clearInterval(messageChecker);
+    messageChecker = undefined;
 }

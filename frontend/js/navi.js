@@ -1,5 +1,7 @@
 'use strict';
 
+import { loggedIn } from './user.js';
+
 // ******************************************************************
 // *********************** THE NAVIGATION ***************************
 // ******************************************************************
@@ -27,9 +29,13 @@ function makeActive(sectionName) {
     window.scrollTo(0, 0);
 }
 
-export function go(sectionName) {
+export function go(sectionName, replace) {
     makeActive(sectionName);
-    history.pushState({section: sectionName}, '', '#' + sectionName);
+    if (replace) {
+        history.replaceState({ section: sectionName}, '', '#' + sectionName);
+    } else {
+        history.pushState({ section: sectionName }, '', '#' + sectionName);
+    }
 }
 
 window.addEventListener('popstate', (event) => {
@@ -37,9 +43,27 @@ window.addEventListener('popstate', (event) => {
     makeActive(event?.state?.section || 'home');
 });
 
-export function initSectionFromHash() {
-    if (location.hash) {
-        makeActive(location.hash.substr(1));
+export function initSectionFromHash(loggedIn) {
+    if (loggedIn) {
+        if (!location.hash) {
+            makeActive('rooms');
+            return;
+        }
+
+        const hash = location.hash.substr(1);
+        if (hash == 'home') {
+            go('rooms', true);
+        } else {
+            makeActive(hash);
+        }
+        return;
+    }
+
+    // Not logged in
+    if (!location.hash || location.hash == '#home') {
+        makeActive('home');
+    } else {
+        go('home', true);
     }
 }
 
@@ -56,3 +80,16 @@ function selectSection(event) {
 for (const elem of document.querySelectorAll('a[data-go]')) {
     elem.addEventListener('click', selectSection);
 }
+
+// ------------------------------------------------------------------
+// Home link
+// ------------------------------------------------------------------
+
+document.getElementById('home-link').addEventListener('click', (event) => {
+    event.preventDefault();
+    if (loggedIn()) {
+        go('rooms');
+    } else {
+        go('home');
+    }
+});
