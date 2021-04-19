@@ -23,3 +23,19 @@ export async function updateRoomList() {
         `;
     }
 }
+
+// TODO: does this work? Module global variables?
+let roomUpdater;
+
+export function startRooms() {
+    if (roomUpdater) {
+        console.error('Rooms started while already running');
+        clearInterval(roomUpdater);
+    }
+    roomUpdater = setInterval(updateRoomList, 5000);
+}
+
+export function stopRooms() {
+    clearInterval(roomUpdater);
+    roomUpdater = undefined;
+}

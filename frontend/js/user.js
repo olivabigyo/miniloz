@@ -3,7 +3,7 @@
 import { sendRequest } from './request.js';
 import { initSectionFromHash } from './navi.js';
 import { startChat, stopChat } from './chat.js';
-import { updateRoomList } from './room.js';
+import { startRooms, stopRooms, updateRoomList } from './room.js';
 
 const theUser = {};
 
@@ -15,6 +15,7 @@ export function onLoggedIn(user) {
     document.getElementById('profile-name').innerText = user.name;
     startChat();
     updateRoomList();
+    startRooms();
 }
 
 export function onLoggedOut() {
@@ -25,6 +26,7 @@ export function onLoggedOut() {
     document.getElementById('nav-right').classList.add('hidden');
     document.getElementById('profile-name').innerText = 'NoUser';
     stopChat();
+    stopRooms();
 }
 
 export async function initUserStuff() {
