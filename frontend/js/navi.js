@@ -49,8 +49,7 @@ export function initSectionFromHash() {
 
 function selectSection(event) {
     event.preventDefault();
-    // TODO: target??
-    const elem = event.target;
+    const elem = event.currentTarget;
     go(elem.dataset.go);
 }
 

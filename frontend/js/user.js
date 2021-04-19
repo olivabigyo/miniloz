@@ -19,7 +19,6 @@ function onLoggedIn(user) {
 
 export async function initUserStuff() {
     const status = await sendRequest('checkLogin', {});
-    console.log(status);
 
     if (status.loggedIn) {
         onLoggedIn(status.user);
