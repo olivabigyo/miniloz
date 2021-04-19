@@ -1,6 +1,7 @@
 'use strict';
 
 import { loggedIn } from './user.js';
+import { updateRoomList } from './room.js';
 
 // ******************************************************************
 // *********************** THE NAVIGATION ***************************
@@ -89,6 +90,7 @@ document.getElementById('home-link').addEventListener('click', (event) => {
     event.preventDefault();
     if (loggedIn()) {
         go('rooms');
+        updateRoomList();
     } else {
         go('home');
     }
