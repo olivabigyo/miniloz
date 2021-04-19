@@ -11,8 +11,14 @@ class User implements JsonSerializable
         $this->name = $name;
     }
 
-    public function jsonSerialize() {
-        return [ 'id' => $this->id, 'name' => $this->name ];
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function jsonSerialize()
+    {
+        return ['id' => $this->id, 'name' => $this->name];
     }
 
     public static function createUser($payload)
@@ -46,7 +52,8 @@ class User implements JsonSerializable
         return new User($row->id, $row->username);
     }
 
-    public static function logout() {
+    public static function logout()
+    {
         // Destroy the cookie
         $params = session_get_cookie_params();
         setcookie(session_name(), '', time() - 3600, $params['path'], $params['domain'], $params['secure'], isset($params['httponly']));

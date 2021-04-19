@@ -55,7 +55,7 @@ function handleRequest($action, $payload)
     }
 
     if ($action === 'addMessage') {
-        return ['id' => Chat::addMessage($payload)];
+        return ['id' => Chat::addMessage($user, $payload)];
     }
 }
 

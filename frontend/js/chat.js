@@ -43,35 +43,16 @@ function updateMessages(messages) {
 async function addMessage(event) {
     // async function, we don't want to reload the site
     event.preventDefault();
-    // save name in localstorage
-    saveName();
-    const name = document.getElementById('name');
     const message = document.getElementById('message');
-    // console.log(`Sending new message from ${name.value}: ${message.value}`);
+    if (!message.value) return;
 
-    const reply = await sendRequest('addMessage', {name: name.value, content: message.value});
+    const reply = await sendRequest('addMessage', {content: message.value});
     if (reply) {
-        console.log('Message successfully sent.');
+        // console.log('Message successfully sent.');
         message.value = '';
         // we repopulate the site and don't wait for the automatic repopulation which only happens in every 2 seconds
         getMessages();
     }
-}
-
-// ------------------------------------------------------------------
-// Save name in localStorage
-// -------------------------
-
-function saveName() {
-    const name = document.getElementById('name');
-    localStorage.setItem('letsChatName', name.value);
-}
-
-function restoreName() {
-    const name = localStorage.getItem('letsChatName');
-    if (!name) return;
-    const nameElem = document.getElementById('name');
-    nameElem.value = name;
 }
 
 // ------------------------------------------------------------------
@@ -85,9 +66,6 @@ export function startChat() {
     // We want to update in every ... seconds
     setInterval(getMessages, 60000);
 
-    restoreName();
-
     // Event Listeners
     document.getElementById('chatform').addEventListener('submit', addMessage);
-    document.getElementById('name').addEventListener('blur', saveName);
 }

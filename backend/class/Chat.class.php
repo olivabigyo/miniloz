@@ -20,15 +20,11 @@ class Chat
         return $messages;
     }
 
-    public static function addMessage($data)
+    public static function addMessage($user, $data)
     {
-        $data = (array) $data;
         // TODO: validate!
-        // $data must have only 'name' and 'content' keys!
-        if (!keys_are($data, ['name', 'content'])) {
-            throw new Exception('Invalid addMessage parameters');
-        }
-        $id = globalDB()->insert('messages', $data);
+
+        $id = globalDB()->insert('messages', ['name' => $user->getName(), 'content' => $data->content]);
         return $id;
     }
 }
