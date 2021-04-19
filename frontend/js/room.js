@@ -24,7 +24,6 @@ export async function updateRoomList() {
     }
 }
 
-// TODO: does this work? Module global variables?
 let roomUpdater;
 
 export function startRooms() {
@@ -32,7 +31,7 @@ export function startRooms() {
         console.error('Rooms started while already running');
         clearInterval(roomUpdater);
     }
-    roomUpdater = setInterval(updateRoomList, 5000);
+    roomUpdater = setInterval(updateRoomList, 50000);
 }
 
 export function stopRooms() {
