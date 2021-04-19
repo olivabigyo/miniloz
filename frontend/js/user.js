@@ -4,21 +4,21 @@ import { sendRequest } from './request.js';
 import { initSectionFromHash } from './navi.js';
 import { startChat, stopChat } from './chat.js';
 
-let user;
-let userId;
+const theUser = {};
 
 export function onLoggedIn(user) {
-    user = user.name;
-    userId = user.id;
+    theUser.name = user.name;
+    theUser.id = user.id;
 
     document.getElementById('nav-right').classList.remove('hidden');
-    document.getElementById('profile-name').innerText = user;
+    document.getElementById('profile-name').innerText = user.name;
     startChat();
 }
 
 export function onLoggedOut() {
-    user = undefined;
-    userId = undefined;
+    console('Logged out');
+    theUser.name = undefined;
+    theUser.id = undefined;
 
     document.getElementById('nav-right').classList.add('hidden');
     document.getElementById('profile-name').innerText = 'NoUser';
@@ -37,5 +37,5 @@ export async function initUserStuff() {
 }
 
 export function loggedIn() {
-    return !!user;
+    return !!theUser.name;
 }
