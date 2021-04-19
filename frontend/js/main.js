@@ -66,15 +66,22 @@ const signupForm = document.getElementById('submitSignup');
 signupForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     const name = document.getElementById('usernameSignup').value;
-    const password = document.getElementById('passwordSignup').value;
-    const pwd2 = document.getElementById('passwordSignupRep').value;
+    const password = document.getElementById('passwordSignup');
+    const password2 = document.getElementById('passwordSignupRep');
     // TODO: validate
     // TODO: username exist on the flight validate
-    console.log(name, password, pwd2);
 
-    const data = await sendRequest('createUser', { name, password });
-    // if (data.ok) { go('rooms') } else { display error message...};
+    const data = await sendRequest('createUser', { name, password: password.value });
+    if (data) {
+        password.value = '';
+        password2.value = '';
 
+        User.onLoggedIn(data.user);
+        go('rooms');
+    } else {
+        console.error('createUser failed');
+        // display error message...
+    };
 });
 
 // Form for changing password

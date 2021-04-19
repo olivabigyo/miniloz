@@ -10,7 +10,7 @@ function handleRequest($action, $payload)
 {
     // User stuff
     if ($action === 'createUser') {
-        return ['result' => User::createUser($payload)];
+        return ['user' => User::createUser($payload)];
     }
 
     if ($action === 'login') {

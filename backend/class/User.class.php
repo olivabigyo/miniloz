@@ -29,7 +29,11 @@ class User implements JsonSerializable
             'user',
             ['username' => $payload->name, 'password' => $password]
         );
-        return ['id' => $id];
+
+        $_SESSION['user'] = $payload->name;
+        $_SESSION['userId'] = $id;
+
+        return new User($id, $payload->name);
     }
 
     public static function login($payload)
