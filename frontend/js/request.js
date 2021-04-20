@@ -12,7 +12,7 @@ export async function sendRequest(action, payload) {
     try {
         const request = await fetch(apiEndpoint, {
             method: 'POST',
-            // credentials: 'include',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             },

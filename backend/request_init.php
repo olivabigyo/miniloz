@@ -1,7 +1,7 @@
 <?php
 // we handle requests from anyone
-// TODO: This doesn't work with credentials: include
-header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
+header('Access-Control-Allow-Credentials: true');
 header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Content-Type');
 header('Content-Type: application/json');
@@ -45,9 +45,13 @@ if (!in_array($action, $validActions)) {
     exitWithError('Unrecognized action');
 }
 
-session_start(array(
+session_set_cookie_params([
+    // Necessary for cross-origin cookie setting
+    'samesite' => 'None',
+    'secure' => true,
+    'httponly' => true,
+]);
+session_start([
     // use different cookie from the default PHPSESSID
     'name' => 'LOOPSSESSID',
-    // JS should not access the session cookie
-    'cookie_httponly' => true,
-));
+]);

@@ -18,7 +18,7 @@ export function onLoggedIn(user) {
 }
 
 export function onLoggedOut() {
-    console('Logged out');
+    console.log('Logged out');
     theUser = undefined;
 
     document.getElementById('nav-right').classList.add('hidden');
