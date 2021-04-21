@@ -39,6 +39,7 @@ $validActions = array(
     // game
     'listRooms',
     'getNewRoom',
+    'getIntoRoom',
 );
 
 if (!in_array($action, $validActions)) {

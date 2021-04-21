@@ -8,7 +8,7 @@ import { go } from './navi.js';
 User.initUserStuff();
 
 // ******************************************************************
-// ******************** THE FORM SUBMITTING *************************
+// ************************* THE SUBMITS ****************************
 // ******************************************************************
 
 // ------------------------------------------------------------------
@@ -29,7 +29,7 @@ newRoomForm.addEventListener('submit', async (event) => {
         // TODO: kiirni ezt a hibat
         return;
     }
-    startGame(data.room.game);
+    startGame(data.room.game, data.room.name);
     go('game');
 });
 

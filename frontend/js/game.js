@@ -11,8 +11,9 @@ const nullTile = { image: '', connections: '0000', rotation: 0 };
 let game = {};
 
 // Initialize game from game object
-export function startGame(gameData) {
+export function startGame(gameData, gameName) {
     game = gameData;
+    document.getElementById('game-name').innerText = `Game: ${gameName}`;
     playground.innerHTML = "";
     const tilewidth = Math.floor(600 / game.w);
     playground.style.gridTemplateColumns = `repeat(${game.w}, ${tilewidth}px)`;

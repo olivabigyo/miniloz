@@ -43,6 +43,10 @@ function handleRequest($action, $payload)
         return ['room' => Room::createRoom($user, $payload)];
     }
 
+    if ($action === 'getIntoRoom') {
+        return ['room' => Room::getRoom($payload->id)];
+    }
+
     // Chat stuff
     if ($action === 'getMessages') {
         return ['messages' => Chat::getMessages()];
