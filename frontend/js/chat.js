@@ -82,3 +82,7 @@ export function stopChat() {
     clearInterval(messageChecker);
     messageChecker = undefined;
 }
+
+document.getElementById('chat-head').addEventListener('click',() => {
+    document.getElementById('chat-body').classList.toggle('hidden');
+})

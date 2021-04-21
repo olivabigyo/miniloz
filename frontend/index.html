@@ -71,7 +71,6 @@
             <div class="row mt-4">
                 <div class="col-lg-4 mx-auto">
                     <div class="feedback error mb-2">Something went wrong!</div>
-                    <div class="feedback success mb-2">Success. Gratuliere!</div>
                     <form action="" id="submitLogin">
                         <div class="form-group">
                             <label for="username"><span class="">Username:</span></label>
@@ -104,7 +103,6 @@
             <div class="row mt-4">
                 <div class="col-lg-4 mx-auto">
                     <div class="feedback error mb-2">Something went wrong!</div>
-                    <div class="feedback success mb-2">Success. Gratuliere!</div>
                     <form action="" id="submitSignup">
                         <div class="form-group">
                             <label for="usernameSignup"><span class="">Username:</span></label>
@@ -238,7 +236,6 @@
             <div class="row">
                 <div class="col-lg-6 mx-auto">
                     <div class="feedback error mb-2">Something went wrong!</div>
-                    <div class="feedback success mb-2">Success. Gratuliere!</div>
                     <table class="table">
                         <thead>
                             <tr>
@@ -253,7 +250,7 @@
                         </tbody>
                     </table>
                     <p>Want a new one?</p>
-                    <a href="#roomGenerator" data-go="roomGenerator" class="btn btn-theme btn-block">Room Generator</a>
+                    <a href="#roomGenerator" data-go="roomGenerator" class="btn btn-theme btn-block mb-3">Room Generator</a>
                 </div>
             </div>
         </div>
@@ -265,7 +262,6 @@
             <div class="row">
                 <div class="col-lg-4 mx-auto">
                     <div class="feedback error mb-2">Something went wrong!</div>
-                    <div class="feedback success mb-2">Success. Gratuliere!</div>
                     <form action="" id="submitNewRoom">
                         <div class="form-group">
                             <label for="roomname"><span class="">Name of the Room:</span></label>
@@ -287,23 +283,25 @@
     </div>
 
     <div class="section flexible" data-section="game">
-        <h3>Game: </h3>
+        <h3 id="game-name">Game</h3>
         <div id="canvas"></div>
     </div>
 
     <div id="lets-chat" class="container flexible hidden">
         <div class="row">
             <div class="col-lg-6 offset-lg-3 mx-auto boxes" id="chatbox">
-                <h2>Let's chat</h2>
-                <div id="messages" class="mb-2"></div>
-                <form id="chatform" action="">
-                    <div class="form-group">
-                        <input class="form-control" type="text" id="message" placeholder="type message here">
-                    </div>
-                    <button type="submit" class="btn btn-theme btn-block">
-                        Send <i class="fas fa-arrow-right"></i>
-                    </button>
-                </form>
+                <h3 id="chat-head">Let's chat <i class="fas fa-arrow-down" style="float: right; color: gray;"></i></h3>
+                <div id="chat-body">
+                    <div id="messages" class="mb-2"></div>
+                    <form id="chatform" action="">
+                        <div class="form-group">
+                            <input class="form-control" type="text" id="message" placeholder="type message here">
+                        </div>
+                        <button type="submit" class="btn btn-theme btn-block">
+                            Send <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
