@@ -14,6 +14,9 @@ let game = {};
 export function startGame(gameData) {
     game = gameData;
     playground.innerHTML = "";
+    const tilewidth = Math.floor(600 / game.w);
+    playground.style.gridTemplateColumns = `repeat(${game.w}, ${tilewidth}px)`;
+    playground.style.gridTemplateRows = `repeat(${game.w}, ${tilewidth}px)`;
     let r = 0;
     for (const row of game.tiles) {
         let c = 0;
@@ -21,7 +24,6 @@ export function startGame(gameData) {
             const elem = document.createElement('div');
             elem.classList.add('tile');
             tile.elem = elem;
-            const tilewidth = 600 / game.w;
             elem.style.width = `${tilewidth}px`;
             elem.style.height = `${tilewidth}px`;
             tile.deg = tile.rotation * 90;
@@ -126,6 +128,6 @@ function isConnected(tile) {
     } else {
         // at least on side doesn't fit with the neigbour tile
         tile.elem.style.opacity = 0.7;
-        tile.elem.style.border = '2px solid rgb(148, 148, 148)';
+        tile.elem.style.border = '1px solid rgb(148, 148, 148)';
     }
 }
