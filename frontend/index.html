@@ -70,8 +70,7 @@
         <div class="container">
             <div class="row mt-4">
                 <div class="col-lg-4 mx-auto">
-                    <div class="feedback error mb-2">Something went wrong!</div>
-                    <form action="" id="submitLogin">
+                    <form action="" id="submitLogin" class="placeFeedback">
                         <div class="form-group">
                             <label for="username"><span class="">Username:</span></label>
                             <div class="input-group mb-4">
@@ -102,8 +101,7 @@
         <div class="container">
             <div class="row mt-4">
                 <div class="col-lg-4 mx-auto">
-                    <div class="feedback error mb-2">Something went wrong!</div>
-                    <form action="" id="submitSignup">
+                    <form action="" id="submitSignup" class="placeFeedback">
                         <div class="form-group">
                             <label for="usernameSignup"><span class="">Username:</span></label>
                             <div class="input-group mb-4">
@@ -184,9 +182,7 @@
         <div class="container">
             <div class="row mt-4">
                 <div class="col-lg-4 mx-auto">
-                    <div class="feedback error mb-2">Something went wrong!</div>
-                    <div class="feedback success mb-2">Success. Gratuliere!</div>
-                    <form action="" id="submitPassword">
+                    <form action="" id="submitPassword" class="placeFeedback">
                         <div class="form-group">
                             <label for="usernameEx"><span class="">Username:</span></label>
                             <div class="input-group mb-4">
@@ -234,8 +230,7 @@
         <h2>Active rooms</h2>
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 mx-auto">
-                    <div class="feedback error mb-2">Something went wrong!</div>
+                <div class="col-lg-6 mx-auto placeFeedback">
                     <table class="table">
                         <thead>
                             <tr>
@@ -262,11 +257,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 mx-auto">
-                    <div class="feedback error mb-2">Something went wrong!</div>
-                    <form action="" id="submitNewRoom">
+                    <form action="" id="submitNewRoom" class="placeFeedback">
                         <div class="form-group">
                             <label for="roomname"><span class="">Name of the Room:</span></label>
-                            <input type="text" class="form-control" name="RoomName" id="roomname" value="Main">
+                            <input type="text" class="form-control" name="RoomName" id="roomname" placeholder="type room name">
                         </div>
                         <div class="form-group">
                             <label for="roomsize"><span>Size of the Room:</span></label>
@@ -294,7 +288,7 @@
                 <h3 id="chat-head"><i class="fas fa-times"></i>Let's chat<i class="fas fa-times"></i></h3>
                 <div id="chat-body">
                     <div id="messages" class="mb-2"></div>
-                    <form id="chatform" action="">
+                    <form id="chatform" action="" class="placeFeedback">
                         <div class="row">
                             <div class="col-8">
                                 <input class="form-control" type="text" id="newmessage" placeholder="type message here">

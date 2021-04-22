@@ -83,6 +83,7 @@ export function stopChat() {
     messageChecker = undefined;
 }
 
+// open and close chat section
 document.getElementById('chat-head').addEventListener('click',() => {
     document.getElementById('chat-body').classList.toggle('hidden');
     document.querySelector('#chat-head i:first-child').classList.toggle('fa-arrow-down');

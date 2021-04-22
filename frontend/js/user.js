@@ -12,6 +12,7 @@ export function onLoggedIn(user) {
 
     document.getElementById('nav-right').classList.remove('hidden');
     document.getElementById('profile-name').innerText = user.name;
+    document.getElementById('usernameEx').value = user.name;
     startChat();
     updateRoomList();
     startRooms();

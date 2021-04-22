@@ -30,22 +30,20 @@ export async function updateRoomList() {
 
 function initRoomListeners() {
     const roomButtons = document.querySelectorAll('.go-room');
-    // console.log(roomButtons);
     let roomId = [];
 
     for (let i = 0; i < roomButtons.length; i++) {
         roomId[i] = roomButtons[i].dataset.room;
-        // console.log(roomId[i]);
         roomButtons[i].addEventListener('click', async (event) => {
             event.preventDefault();
-            console.log(roomId[i]);
             const id = roomId[i];
-            const data = await sendRequest('getIntoRoom', {id});
+            const data = await sendRequest('getIntoRoom', { id });
             if (!data) {
-                // TODO: kiirni ezt a hibat
+                // TODO: kell ez ide? a request.js ezt kezeli mar sztem...
+                console.error('Get room data failed');
+                displayErrors('Something went wrong.');
                 return;
             }
-            // console.log(data);
             startGame(data.room.game, data.room.name);
             go('game');
         })

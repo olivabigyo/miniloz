@@ -104,6 +104,7 @@ h3 {
 .feedback {
     border-radius: 0.5rem;
     padding: .8rem;
+    margin-bottom: 1rem;
 }
 
 .feedback.success {

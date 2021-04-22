@@ -1,5 +1,7 @@
 'use strict';
 
+import { displayErrors } from './feedback.js';
+
 // ******************************************************************
 // ************************* THE REQUEST ****************************
 // ******************************************************************
@@ -37,7 +39,7 @@ export async function sendRequest(action, payload) {
         }
 
         if (!data.ok) {
-            throw Error('Server returned error: ' + data.error);
+            displayErrors(data.error);
         }
 
         console.log('Successful request.', data);

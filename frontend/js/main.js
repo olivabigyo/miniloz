@@ -4,6 +4,7 @@ import { sendRequest } from './request.js';
 import * as User from './user.js';
 import { startGame } from './game.js';
 import { go } from './navi.js';
+import { displayErrors, emptyFields } from './feedback.js';
 
 User.initUserStuff();
 
@@ -25,10 +26,12 @@ newRoomForm.addEventListener('submit', async (event) => {
     console.log(name, size, density);
 
     const data = await sendRequest('getNewRoom', { name, size, density });
+    // TODO: kell ez ide? a request.js ezt kezeli mar sztem...
     if (!data) {
-        // TODO: kiirni ezt a hibat
+        displayErrors('Something went wrong.');
         return;
     }
+    emptyFields();
     startGame(data.room.game, data.room.name);
     go('game');
 });
@@ -37,18 +40,21 @@ newRoomForm.addEventListener('submit', async (event) => {
 const loginForm = document.getElementById('submitLogin');
 loginForm.addEventListener('submit', async (event) => {
     event.preventDefault();
+    // values
     const name = document.getElementById('username').value;
     const passwordField = document.getElementById('password');
     const password = passwordField.value;
 
+    // send request
     const data = await sendRequest('login', { name, password });
     if (data) {
-        passwordField.value = '';
+        emptyFields();
         User.onLoggedIn(data.user);
         go('rooms');
     } else {
+        // TODO: kell ez ide? a request.js ezt kezeli mar sztem...
         console.error('Login failed');
-        // display error message...
+        displayErrors('Login failed.');
     };
 });
 
@@ -65,22 +71,44 @@ logoutButton.addEventListener('click', async (event) => {
 const signupForm = document.getElementById('submitSignup');
 signupForm.addEventListener('submit', async (event) => {
     event.preventDefault();
+    // Values
     const name = document.getElementById('usernameSignup').value;
-    const password = document.getElementById('passwordSignup');
-    const password2 = document.getElementById('passwordSignupRep');
-    // TODO: validate
+    const password = document.getElementById('passwordSignup').value;
+    const password2 = document.getElementById('passwordSignupRep').value;
+    // Validate values
+    if (!name || !password || !password2) {
+        displayErrors('Please fill out all fields.');
+        emptyFields();
+        return;
+    }
+    if (name.length < 3) {
+        displayErrors('Name too short (min. 3)');
+        emptyFields();
+        return;
+    }
+    if (password.length < 5) {
+        displayErrors('Password too short (min. 4)');
+        emptyFields();
+        return;
+    }
+    if (password != password2) {
+        displayErrors('Password and repeat password should match');
+        emptyFields();
+        return;
+    }
+
     // TODO: username exist on the flight validate
 
-    const data = await sendRequest('createUser', { name, password: password.value });
+    // Send request
+    const data = await sendRequest('createUser', { name, password: password });
     if (data) {
-        password.value = '';
-        password2.value = '';
-
+        emptyFields();
         User.onLoggedIn(data.user);
         go('rooms');
     } else {
+        // TODO: kell ez ide? a request.js ezt kezeli mar sztem...
         console.error('createUser failed');
-        // display error message...
+        displayErrors('Something went wrong.');
     };
 });
 
@@ -88,12 +116,36 @@ signupForm.addEventListener('submit', async (event) => {
 const passwordForm = document.getElementById('submitPassword');
 passwordForm.addEventListener('submit', async (event) => {
     event.preventDefault();
-    const name = document.getElementById('usernameEx').value; // ez nyilvan nem valaszthato, gondolom jon valami sessionbol
-    const pwd = document.getElementById('passwordEx').value;
-    const newpwd = document.getElementById('passwordNew').value;
-    const newpwd2 = document.getElementById('passwordNewRep').value;
-    // TODO: validate
-    console.log(name, pwd, newpwd, newpwd2);
-
-    const data = await sendRequest('changePassword', { name, pwd, newpwd, newpwd2 });
+    // values
+    const name = document.getElementById('usernameEx').value;
+    let password = document.getElementById('passwordEx').value;
+    let newpassword = document.getElementById('passwordNew').value;
+    let newpassword2 = document.getElementById('passwordNewRep').value;
+    // validate values
+    if (!password || !newpassword || !newpassword2) {
+        displayErrors('Please fill out all fields.');
+        emptyFields();
+        return;
+    }
+    if (newpassword.length < 4) {
+        displayErrors('Password too short (min. 4)');
+        emptyFields();
+        return;
+    }
+    if (newpassword != newpassword2) {
+        displayErrors('Password and repeat password should match');
+        emptyFields();
+        return;
+    }
+    // send request
+    const data = await sendRequest('changePassword', { name, password, newpassword, newpassword2 });
+    if (data) {
+        emptyFields();
+        // display as Success(green) not Error(red)
+        displayErrors('Your password was changed.', false);
+    } else {
+        // TODO: kell ez ide? a request.js ezt kezeli mar sztem...
+        console.error('Changing password failed');
+        displayErrors('Something went wrong.');
+    }
 });
