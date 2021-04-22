@@ -33,6 +33,7 @@ $validActions = array(
     'checkLogin',
     'logout',
     'createUser',
+    'changePassword',
     // chat
     'getMessages',
     'addMessage',

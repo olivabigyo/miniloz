@@ -34,6 +34,11 @@ function handleRequest($action, $payload)
     // Things below here require a valid login
     $user = User::requireLogin();
 
+    // User stuff
+    if ($action === 'changePassword') {
+        return ['user' => User::changePassword($payload)];
+    }
+
     // Game stuff
     if ($action === 'listRooms') {
         return ['rooms' => Room::listRooms()];
