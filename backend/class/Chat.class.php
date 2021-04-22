@@ -1,6 +1,4 @@
 <?php
-// TODO: why? how? wtf?
-require_once 'functions.php';
 
 class Chat
 {
@@ -22,9 +20,10 @@ class Chat
 
     public static function addMessage($user, $data)
     {
-        // TODO: validate!
-
-        $id = globalDB()->insert('messages', ['name' => $user->getName(), 'content' => $data->content]);
+        // validate input
+        $content = validate($data->content, 'message');
+        // Insert into DB
+        $id = globalDB()->insert('messages', ['name' => $user->getName(), 'content' => $content]);
         return $id;
     }
 }

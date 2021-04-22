@@ -53,21 +53,23 @@ class Room implements JsonSerializable
     }
 
     public static function createRoom($user, $payload) {
-        // TODO: sanitize name, size and density!
-
-        $w = $payload->size;
+        // Validate input
+        $name = validate($payload->name, 'name');
+        $w = validate($payload->size, 'roomsize');
         $h = $w;
-        $density = $payload->density;
+        $density = validate($payload->density, 'density');
         $game = Game::generate($w, $h, $density);
 
-        // TODO: generate with a fix seed and store the seed in params too
-        $params = ['size' => $payload->size, 'density' => $density];
+        // TODO: check is roomname exists
 
+        // TODO: generate with a fix seed and store the seed in params too
+        $params = ['size' => $w, 'density' => $density];
+        // Insert into DB
         $stmt = globalDB()->prepare(
             'INSERT INTO rooms (name, creator, params, modified, moveCount, game)
                VALUES (:name, :creator, :params, :modified, :moveCount, :game)'
         );
-        $stmt->bindValue(':name', $payload->name);
+        $stmt->bindValue(':name', $name);
         $stmt->bindValue(':creator', $user->getId());
         $stmt->bindValue(':params', json_encode($params));
         $stmt->bindValue(':modified', time(), PDO::PARAM_INT);

@@ -28,13 +28,19 @@ class User implements JsonSerializable
 
     public static function createUser($payload)
     {
-        // TODO: validate!
-        $password = password_hash($payload->password, PASSWORD_DEFAULT);
+        // Validate input
+        $name = validate($payload->name, 'name');
+        $password = validate($payload->password, 'password');
+
+        // TODO: check if username exists
+
+        // Insert in DB
+        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
         $id = globalDB()->insert(
             'user',
-            ['username' => $payload->name, 'password' => $password]
+            ['username' => $name, 'password' => $passwordHash]
         );
-
+        // Write into session
         $_SESSION['user'] = $payload->name;
         $_SESSION['userId'] = $id;
 
@@ -43,18 +49,23 @@ class User implements JsonSerializable
 
     public static function login($payload)
     {
+        // Validate input
+        $name = validate($payload->name, 'name');
+        $password = validate($payload->password, 'password');
+        // Check username
         $stmt = globalDB()->executeQuery(
             'SELECT * FROM user WHERE username = ?',
-            [$payload->name]
+            [$name]
         );
         $row = $stmt->fetch();
         if (!$row) {
             throw new Exception('No such user');
         }
-        if (!password_verify($payload->password, $row->password)) {
+        // Check password
+        if (!password_verify($password, $row->password)) {
             throw new Exception('Incorrect password');
         }
-
+        // Write into session
         $_SESSION['user'] = $row->username;
         $_SESSION['userId'] = $row->id;
 
