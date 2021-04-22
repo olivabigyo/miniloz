@@ -141,7 +141,7 @@
     <div class="section flexible" data-section="profile">
         <h2>Profile</h2>
         <div class="container">
-            <div class="row">
+            <div class="row mb-4">
                 <div class="col-lg-4 mx-auto">
                     <a href="#themes" class="btn btn-theme btn-block mb-4" data-go="themes">
                         <i class="fas fa-pen"></i> Themes
@@ -149,7 +149,7 @@
                     <!-- <a href="friends.html" class="btn btn-theme btn-block mb-4">
                         <i class="fas fa-user"></i> Friends
                     </a> -->
-                    <a href="#password" class="btn btn-theme btn-block" data-go="password">
+                    <a href="#password" class="btn btn-theme btn-block mb-4" data-go="password">
                         <i class="fas fa-key"></i> Change Password
                     </a>
                 </div>
@@ -160,7 +160,7 @@
     <div class="section flexible" data-section="themes">
         <h2>Color settings</h2>
         <div class="container">
-            <div class="row mt-4">
+            <div class="row my-4">
                 <div class="col-lg-4 mx-auto">
                     <form action="" id="colorSettings">
                         <div class="form-group">
@@ -193,7 +193,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
-                                <input type="text" class="form-control" id="usernameEx">
+                                <input disabled type="text" class="form-control" id="usernameEx">
                             </div>
                         </div>
                         <div class="form-group">
@@ -250,7 +250,8 @@
                         </tbody>
                     </table>
                     <p>Want a new one?</p>
-                    <a href="#roomGenerator" data-go="roomGenerator" class="btn btn-theme btn-block mb-3">Room Generator</a>
+                    <a href="#roomGenerator" data-go="roomGenerator" class="btn btn-theme btn-block mb-3">Room
+                        Generator</a>
                 </div>
             </div>
         </div>
@@ -289,17 +290,21 @@
 
     <div id="lets-chat" class="container flexible hidden">
         <div class="row">
-            <div class="col-lg-6 offset-lg-3 mx-auto boxes" id="chatbox">
-                <h3 id="chat-head">Let's chat <i class="fas fa-arrow-down" style="float: right; color: gray;"></i></h3>
+            <div class="col-lg-6 mx-auto boxes" id="chatbox">
+                <h3 id="chat-head"><i class="fas fa-times"></i>Let's chat<i class="fas fa-times"></i></h3>
                 <div id="chat-body">
                     <div id="messages" class="mb-2"></div>
                     <form id="chatform" action="">
-                        <div class="form-group">
-                            <input class="form-control" type="text" id="message" placeholder="type message here">
+                        <div class="row">
+                            <div class="col-8">
+                                <input class="form-control" type="text" id="newmessage" placeholder="type message here">
+                            </div>
+                            <div class="col-4">
+                                <button type="submit" class="btn btn-theme btn-block">
+                                    Send <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
                         </div>
-                        <button type="submit" class="btn btn-theme btn-block">
-                            Send <i class="fas fa-arrow-right"></i>
-                        </button>
                     </form>
                 </div>
             </div>

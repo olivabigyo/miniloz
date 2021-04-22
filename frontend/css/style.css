@@ -60,11 +60,11 @@ h2, h3 {
 }
 
 h2 {
-    margin: 10vh auto;
+    margin: 80px auto;
 }
 
 h3 {
-    margin: 20px auto;
+    margin: 30px auto;
 }
 
 .form-control, .btn {
@@ -77,6 +77,10 @@ h3 {
 
 .btn {
     padding: 0.6rem;
+}
+
+.btn-sm {
+    padding: 0.4rem;
 }
 
 .btn-theme {
@@ -100,7 +104,6 @@ h3 {
 .feedback {
     border-radius: 0.5rem;
     padding: .8rem;
-    font-family: 'Quicksand', sans-serif;
 }
 
 .feedback.success {
@@ -111,24 +114,35 @@ h3 {
     background-color: rgb(255, 170, 170);
 }
 
+#chat-head {
+    cursor: pointer;
+}
+
+#chat-head i:first-child {
+    float: left;
+    color: rgb(158, 158, 158);
+}
+
+#chat-head i:last-child {
+    float: right;
+    color: rgb(158, 158, 158);
+}
+
 #chatbox #messages {
     overflow-y: scroll;
-    max-height: 200px;
+    max-height: 250px;
 }
 
 #chatbox .message {
-    font-family: 'Quicksand', sans-serif;
     padding: 0.5rem;
     margin-right: 2px;
     border-radius: 4px;
-    background-color: white;
+    background-color: #f8f8f8;
     margin-bottom: 5px;
 }
 
-#chatbox input {
-    padding: 0.6rem;
-    margin-bottom: 2px;
-    border: none;
+#chatbox #newmessage {
+    padding: 1.4rem;
 }
 
 .hidden {

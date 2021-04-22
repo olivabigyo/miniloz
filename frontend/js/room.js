@@ -20,7 +20,7 @@ export async function updateRoomList() {
         <td>${room.name}</td>
         <td>${room.size}x${room.size}</td>
         <td>${age}</td>
-        <td><button type="submit" data-room="${room.id}" id="room${i}" class="btn btn-theme go-room">Step in</button></td>
+        <td><button type="submit" data-room="${room.id}" id="room${i}" class="btn btn-sm btn-theme go-room">Step in</button></td>
         </tr>
         `;
         i++;
@@ -30,12 +30,12 @@ export async function updateRoomList() {
 
 function initRoomListeners() {
     const roomButtons = document.querySelectorAll('.go-room');
-    console.log(roomButtons);
+    // console.log(roomButtons);
     let roomId = [];
 
     for (let i = 0; i < roomButtons.length; i++) {
         roomId[i] = roomButtons[i].dataset.room;
-        console.log(roomId[i]);
+        // console.log(roomId[i]);
         roomButtons[i].addEventListener('click', async (event) => {
             event.preventDefault();
             console.log(roomId[i]);
@@ -45,7 +45,7 @@ function initRoomListeners() {
                 // TODO: kiirni ezt a hibat
                 return;
             }
-            console.log(data);
+            // console.log(data);
             startGame(data.room.game, data.room.name);
             go('game');
         })

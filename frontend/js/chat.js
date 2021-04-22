@@ -43,7 +43,7 @@ function updateMessages(messages) {
 async function addMessage(event) {
     // async function, we don't want to reload the site
     event.preventDefault();
-    const message = document.getElementById('message');
+    const message = document.getElementById('newmessage');
     if (!message.value) return;
 
     const reply = await sendRequest('addMessage', { content: message.value });
@@ -85,4 +85,8 @@ export function stopChat() {
 
 document.getElementById('chat-head').addEventListener('click',() => {
     document.getElementById('chat-body').classList.toggle('hidden');
+    document.querySelector('#chat-head i:first-child').classList.toggle('fa-arrow-down');
+    document.querySelector('#chat-head i:last-child').classList.toggle('fa-arrow-down');
+    document.querySelector('#chat-head i:first-child').classList.toggle('fa-times');
+    document.querySelector('#chat-head i:last-child').classList.toggle('fa-times');
 })
