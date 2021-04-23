@@ -1,24 +1,26 @@
-export function displayErrors(error, bool = 'true') {
+'use strict';
+
+export function displayErrors(message, isError = true) {
+    if (isError) {
+        console.error(message);
+    }
 
     // Remove old feedback
-    if (document.querySelector('.feedback')) {
-        document.querySelectorAll('.feedback').forEach(element => {
-            element.remove();
-        });
-    }
+    clearFeedback();
+
     // Create and append new feedback
     let feedbackContainer = document.createElement('div');
     feedbackContainer.classList.add('feedback');
-    if (bool) {
+    if (isError) {
         feedbackContainer.classList.add('error');
     } else {
         feedbackContainer.classList.add('success');
     }
-    feedbackContainer.innerText = error;
+    feedbackContainer.innerText = message;
     document.querySelector('.active .placeFeedback').prepend(feedbackContainer);
 }
 
-export function emptyFields() {
+export function clearPasswordFields() {
     document.querySelectorAll('input[type="password"]').forEach(element => {
         element.value = '';
     });

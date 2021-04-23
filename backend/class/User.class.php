@@ -105,45 +105,27 @@ class User implements JsonSerializable
         return new User($_SESSION['userId'], $_SESSION['user']);
     }
 
-    public static function changePassword($payload)
+    public static function changePassword($payload, $user)
     {
         // Validate input
-        $name = validate($payload->name, 'name');
         $password = validate($payload->password, 'password');
         $newpassword = validate($payload->newpassword, 'password');
-        $newpassword2 = validate($payload->newpassword2, 'password');
-        // Check username
-        if ($_SESSION['user'] != $name) {
-            throw new Exception('Invalid user');
-        }
+
         // Check password
-        $stmt = globalDB()->executeQuery(
-            'SELECT * FROM user WHERE username = ?',
-            [$name]
+        $oldHash = globalDB()->simpleQuery(
+            'SELECT password FROM user WHERE username = ?',
+            [$user->getName()]
         );
-        $row = $stmt->fetch();
-        if (!$row) {
-            throw new Exception('No such user');
-        }
-        if (!password_verify($password, $row->password)) {
+
+        if (!password_verify($password, $oldHash)) {
             throw new Exception('Incorrect password');
         }
-        // Validate new passwords
-        if ($newpassword != $newpassword2) {
-            throw new Exception('Password and repeat password should match');
-        }
+
         // Update DB
         $passwordHash = password_hash($newpassword, PASSWORD_DEFAULT);
-        $stmt = globalDB()->executeQuery(
-            'UPDATE user SET password=? WHERE username = ?',
-            [$passwordHash, $name]
+        globalDB()->executeQuery(
+            'UPDATE user SET password = ? WHERE username = ?',
+            [$passwordHash, $user->getName()]
         );
-        if (!$stmt) {
-            throw new Exception('Something went wrong at updating password');
-        }
-        return new User($row->id, $row->username);
     }
-    // public static function byId($id) {
-    //     // from DB...
-    // }
 }

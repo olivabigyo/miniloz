@@ -4,7 +4,7 @@ import { sendRequest } from './request.js';
 import * as User from './user.js';
 import { startGame } from './game.js';
 import { go } from './navi.js';
-import { displayErrors, emptyFields } from './feedback.js';
+import { displayErrors, clearPasswordFields } from './feedback.js';
 
 User.initUserStuff();
 
@@ -26,12 +26,7 @@ newRoomForm.addEventListener('submit', async (event) => {
     console.log(name, size, density);
 
     const data = await sendRequest('getNewRoom', { name, size, density });
-    // TODO: kell ez ide? a request.js ezt kezeli mar sztem...
-    if (!data) {
-        displayErrors('Something went wrong.');
-        return;
-    }
-    emptyFields();
+    if (!data) return;
     startGame(data.room.game, data.room.name);
     go('game');
 });
@@ -49,14 +44,10 @@ loginForm.addEventListener('submit', async (event) => {
     // send request
     const data = await sendRequest('login', { name, password });
     if (data) {
-        emptyFields();
+        clearPasswordFields();
         User.onLoggedIn(data.user);
         go('rooms');
-    } else {
-        // TODO: kell ez ide? a request.js ezt kezeli mar sztem...
-        console.error('Login failed');
-        displayErrors('Login failed.');
-    };
+    }
 });
 // ------------------------------------------------------------------
 
@@ -81,22 +72,22 @@ signupForm.addEventListener('submit', async (event) => {
     // Validate values
     if (!name || !password || !password2) {
         displayErrors('Please fill out all fields.');
-        emptyFields();
+        clearPasswordFields();
         return;
     }
     if (name.length < 3) {
         displayErrors('Name too short (min. 3)');
-        emptyFields();
+        clearPasswordFields();
         return;
     }
     if (password.length < 4) {
         displayErrors('Password too short (min. 4)');
-        emptyFields();
+        clearPasswordFields();
         return;
     }
     if (password != password2) {
         displayErrors('Password and repeat password should match');
-        emptyFields();
+        clearPasswordFields();
         return;
     }
 
@@ -104,15 +95,11 @@ signupForm.addEventListener('submit', async (event) => {
 
     // Send request
     const data = await sendRequest('createUser', { name, password: password });
-    if (data) {
-        emptyFields();
-        User.onLoggedIn(data.user);
-        go('rooms');
-    } else {
-        // TODO: kell ez ide? a request.js ezt kezeli mar sztem...
-        console.error('createUser failed');
-        displayErrors('Something went wrong.');
-    };
+    if (!data) return;
+
+    clearPasswordFields();
+    User.onLoggedIn(data.user);
+    go('rooms');
 });
 // ------------------------------------------------------------------
 
@@ -121,37 +108,30 @@ const passwordForm = document.getElementById('submitPassword');
 passwordForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     // values
-    const name = document.getElementById('usernameEx').value;
     let password = document.getElementById('passwordEx').value;
     let newpassword = document.getElementById('passwordNew').value;
     let newpassword2 = document.getElementById('passwordNewRep').value;
     // validate values
     if (!password || !newpassword || !newpassword2) {
         displayErrors('Please fill out all fields.');
-        emptyFields();
         return;
     }
     if (newpassword.length < 4) {
         displayErrors('Password too short (min. 4)');
-        emptyFields();
         return;
     }
     if (newpassword != newpassword2) {
-        displayErrors('Password and repeat password should match');
-        emptyFields();
+        displayErrors("Passwords don't match");
         return;
     }
+
     // send request
-    const data = await sendRequest('changePassword', { name, password, newpassword, newpassword2 });
-    if (data) {
-        emptyFields();
-        // display as Success(green) not Error(red)
-        displayErrors('Your password was changed.', false);
-    } else {
-        // TODO: kell ez ide? a request.js ezt kezeli mar sztem...
-        console.error('Changing password failed');
-        displayErrors('Something went wrong.');
-    }
+    const data = await sendRequest('changePassword', { password, newpassword });
+    if (!data) return;
+
+    clearPasswordFields();
+    // display as Success(green) not Error(red)
+    displayErrors('Your password has been changed.', false);
 });
 // ------------------------------------------------------------------
 

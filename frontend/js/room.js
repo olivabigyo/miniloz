@@ -16,38 +16,28 @@ export async function updateRoomList() {
     for (const room of data.rooms) {
         const age = `${now - room.modified} secs ago`;
         table.innerHTML += `<tr>
-        <td>${i}</td>
-        <td>${room.name}</td>
-        <td>${room.size}x${room.size}</td>
-        <td>${age}</td>
-        <td><button type="submit" data-room="${room.id}" id="room${i}" class="btn btn-sm btn-theme go-room">Step in</button></td>
-        </tr>
-        `;
+          <td>${i}</td>
+          <td>${room.name}</td>
+          <td>${room.size}x${room.size}</td>
+          <td>${age}</td>
+          <td><button type="submit" data-room="${room.id}" class="btn btn-sm btn-theme go-room">Step in</button></td>
+        </tr>`;
         i++;
     }
-    initRoomListeners();
+
+    for (const button of document.querySelectorAll('.go-room')) {
+        button.addEventListener('click', roomButtonClick);
+    }
 }
 
-function initRoomListeners() {
-    const roomButtons = document.querySelectorAll('.go-room');
-    let roomId = [];
+async function roomButtonClick(event) {
+    event.preventDefault();
+    const id = event.currentTarget.dataset.room;
+    const data = await sendRequest('getIntoRoom', { id });
+    if (!data) return;
 
-    for (let i = 0; i < roomButtons.length; i++) {
-        roomId[i] = roomButtons[i].dataset.room;
-        roomButtons[i].addEventListener('click', async (event) => {
-            event.preventDefault();
-            const id = roomId[i];
-            const data = await sendRequest('getIntoRoom', { id });
-            if (!data) {
-                // TODO: kell ez ide? a request.js ezt kezeli mar sztem...
-                console.error('Get room data failed');
-                displayErrors('Something went wrong.');
-                return;
-            }
-            startGame(data.room.game, data.room.name);
-            go('game');
-        })
-    };
+    startGame(data.room.game, data.room.name);
+    go('game');
 }
 
 let roomUpdater;

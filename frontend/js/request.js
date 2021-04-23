@@ -35,11 +35,13 @@ export async function sendRequest(action, payload) {
             data = JSON.parse(body);
         } catch (err) {
             console.error('Bad JSON in response:', body);
+            displayErrors('Server returned a bad response');
             return;
         }
 
         if (!data.ok) {
             displayErrors(data.error);
+            return;
         }
 
         console.log('Successful request.', data);

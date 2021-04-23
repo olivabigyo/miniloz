@@ -36,7 +36,8 @@ function handleRequest($action, $payload)
 
     // User stuff
     if ($action === 'changePassword') {
-        return ['user' => User::changePassword($payload)];
+        User::changePassword($payload, $user);
+        return [];
     }
 
     // Game stuff
@@ -67,5 +68,6 @@ try {
     $response['ok'] = true;
     echo json_encode($response);
 } catch (Exception $e) {
+    // TODO: distinguish between user facing errors and internal server errors
     exitWithError($e->getMessage());
 }
