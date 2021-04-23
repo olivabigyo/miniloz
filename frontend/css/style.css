@@ -7,28 +7,104 @@
     box-sizing: border-box;
 }
 
-#canvas {
-    width: 604px;
-    height: 604px;
-    margin: 15px auto;
-    display: grid;
-    grid-gap: 0px 0px;
-    border: 2px solid rgb(148, 148, 148);
+/* Color and Font Variables */
+
+/* default theme */
+body[data-theme="London"] {
+    --body-bg-color: #f0f0f0;
+    --body-color: black;
+    --nav-color: rgba(0, 0, 0, .5);
+    --nav-hover-color: rgba(0, 0, 0, .7);
+    --btn-bg-color: #cacaca;
+    --btn-hover-bg-color: #9e9e9e;
+    --btn-color: black;
+    --btn-hover-color: white;
+    --font-body: 'Quicksand', sans-serif;
+    --font-accent: 'Julius Sans One', sans-serif;
+    --game-border: #949494;
+    --feedback-suc-bg-color:#aaffaa;
+    --feedback-err-bg-color:#ffaaaa;
+    --feedback-color: black;
+    --msg-bg-color: #f8f8f8;
 }
 
-.tile {
-    width: 60px;
-    height: 60px;
-    border: 1px solid rgb(148, 148, 148);
-    opacity: 0.7;
-    transition: transform 0.8s;
+/* purple theme */
+body[data-theme="Paris"] {
+    --body-bg-color: #4d244e;
+    --body-color: #f6bd66;
+    --nav-color: #f6bd66;
+    --nav-hover-color: #d37b79;
+    --btn-bg-color: #6d335c;
+    --btn-hover-bg-color: #f6bd66;
+    --btn-color: #f6bd66;
+    --btn-hover-color: black;
+    --font-body: 'Quicksand', sans-serif;
+    --font-accent: 'Julius Sans One', sans-serif;
+    --game-border: #949494;
+    --feedback-suc-bg-color:#aaffaa;
+    --feedback-err-bg-color:#ffaaaa;
+    --feedback-color: black;
+    --msg-bg-color: #6d335c;
 }
 
-body {
-    background-color: #f0f0f0;
-    color: black;
-    font-family: 'Quicksand', sans-serif;
+/* blue theme */
+body[data-theme="Zurich"] {
+    --body-bg-color: #071146;
+    --body-color: white;
+    --nav-color: #ffffffef;
+    --nav-hover-color: #ffffffb3;
+    --btn-bg-color: #172983;
+    --btn-hover-bg-color: #3850c5;
+    --btn-color: white;
+    --btn-hover-color: white;
+    --font-body: 'Quicksand', sans-serif;
+    --font-accent: 'Julius Sans One', sans-serif;
+    --game-border: #949494;
+    --feedback-suc-bg-color:#aaffaa;
+    --feedback-err-bg-color:#ff6a6a;
+    --feedback-color: black;
+    --msg-bg-color: #2139af;
 }
+
+/* red theme */
+body[data-theme="Madrid"] {
+    --body-bg-color: #8A191F;
+    --body-color: white;
+    --nav-color: #ffffffef;
+    --nav-hover-color: #ffffffb3;
+    --btn-bg-color: #F0B454;
+    --btn-hover-bg-color: #67989D;
+    --btn-color: black;
+    --btn-hover-color: white;
+    --font-body: 'Quicksand', sans-serif;
+    --font-accent: 'Julius Sans One', sans-serif;
+    --game-border: #949494;
+    --feedback-suc-bg-color:#84bcc2;
+    --feedback-err-bg-color:#F0B454;
+    --feedback-color: black;
+    --msg-bg-color: #67989D;
+}
+
+/* new theme */
+body[data-theme="Rome"] {
+    --body-bg-color: #FFF7EB;
+    --body-color: #289E77;
+    --nav-color: rgba(0, 0, 0, .5);
+    --nav-hover-color: rgba(0, 0, 0, .7);
+    --btn-bg-color: #B8DF91;
+    --btn-hover-bg-color: #289E77;
+    --btn-color: black;
+    --btn-hover-color: white;
+    --font-body: 'Quicksand', sans-serif;
+    --font-accent: 'Julius Sans One', sans-serif;
+    --game-border: #949494;
+    --feedback-suc-bg-color:#B8DF91;
+    --feedback-err-bg-color:#ffaaaa;
+    --feedback-color: black;
+    --msg-bg-color: #ffbe6a;
+}
+
+
 
 /* for sticky footer */
 
@@ -46,17 +122,64 @@ footer {
     flex-shrink: 0;
 }
 
-nav {
-    background-color: #f0f0f0;
+body {
+    background-color: var(--body-bg-color);
+    color: var(--body-color);
+    font-family: var(--font-body);
 }
 
-.navbar-toggler, .navbar-toggler-icon {
-    color: black;
+#canvas {
+    width: 604px;
+    height: 604px;
+    margin: 15px auto;
+    display: grid;
+    grid-gap: 0px 0px;
+    background-color: #f0f0f0;
+    border: 2px solid var(--game-border);
 }
+
+.tile {
+    width: 60px;
+    height: 60px;
+    border: 1px solid var(--game-border);
+    opacity: 0.7;
+    transition: transform 0.8s;
+}
+
+/* Navigation */
+
+nav {
+    background-color: var(--body-bg-color);
+}
+
+.navbar-light .navbar-brand,
+.navbar-light .navbar-brand:focus,
+.navbar-light .navbar-nav .nav-link,
+.navbar-light .navbar-nav .nav-link:focus {
+    color: var(--nav-color);
+}
+.navbar-light .navbar-brand:hover,
+.navbar-light .navbar-nav .nav-link:hover {
+    color: var(--nav-hover-color);
+}
+
+.navbar-toggler, .navbar-toggler-icon i{
+    color: var(--body-color);
+}
+
+.section {
+    display: none;
+}
+
+.section.active {
+    display: block;
+}
+
+/* Heading */
 
 h2, h3 {
     text-align: center;
-    font-family: 'Julius Sans One', sans-serif;
+    font-family: var(--font-accent);
 }
 
 h2 {
@@ -66,6 +189,8 @@ h2 {
 h3 {
     margin: 30px auto;
 }
+
+/* Forms & Buttons */
 
 .form-control, .btn {
     border-radius: 0.5rem;
@@ -84,36 +209,43 @@ h3 {
 }
 
 .btn-theme {
-    background: rgb(202, 202, 202);
-    font-family: 'Julius Sans One', sans-serif;
+    font-family: var(--font-accent);
+    background: var(--btn-bg-color);
+    color: var(--btn-color);
 }
 
 .btn-theme:hover {
-    background-color: rgb(158, 158, 158);
-    color: white;
+    background-color: var(--btn-hover-bg-color);
+    color: var(--btn-hover-color);
 }
 
-.section {
-    display: none;
+table td {
+    color: var(--body-color);
 }
 
-.section.active {
-    display: block;
+.form-group #theme {
+    padding: .6rem;
+    height: 3rem;
 }
+
+/* User feedback */
 
 .feedback {
     border-radius: 0.5rem;
     padding: .8rem;
     margin-bottom: 1rem;
+    color: var(--feedback-color);
 }
 
 .feedback.success {
-    background-color: rgb(170, 255, 170);
+    background-color: var(--feedback-suc-bg-color);
 }
 
 .feedback.error {
-    background-color: rgb(255, 170, 170);
+    background-color: var(--feedback-err-bg-color);
 }
+
+/* Chat app */
 
 #chat-head {
     cursor: pointer;
@@ -121,12 +253,12 @@ h3 {
 
 #chat-head i:first-child {
     float: left;
-    color: rgb(158, 158, 158);
+    color: var(--btn-hover-bg-color);
 }
 
 #chat-head i:last-child {
     float: right;
-    color: rgb(158, 158, 158);
+    color: var(--btn-hover-bg-color);
 }
 
 #chatbox #messages {
@@ -138,13 +270,15 @@ h3 {
     padding: 0.5rem;
     margin-right: 2px;
     border-radius: 4px;
-    background-color: #f8f8f8;
+    background-color: var(--msg-bg-color);
     margin-bottom: 5px;
 }
 
 #chatbox #newmessage {
     padding: 1.4rem;
 }
+
+/* Other */
 
 .hidden {
     display: none;

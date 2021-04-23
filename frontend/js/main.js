@@ -35,6 +35,7 @@ newRoomForm.addEventListener('submit', async (event) => {
     startGame(data.room.game, data.room.name);
     go('game');
 });
+// ------------------------------------------------------------------
 
 // Login Form
 const loginForm = document.getElementById('submitLogin');
@@ -57,6 +58,7 @@ loginForm.addEventListener('submit', async (event) => {
         displayErrors('Login failed.');
     };
 });
+// ------------------------------------------------------------------
 
 // Logout
 const logoutButton = document.getElementById('logout');
@@ -66,6 +68,7 @@ logoutButton.addEventListener('click', async (event) => {
     User.onLoggedOut();
     go('home');
 });
+// ------------------------------------------------------------------
 
 // Sign up Form
 const signupForm = document.getElementById('submitSignup');
@@ -111,6 +114,7 @@ signupForm.addEventListener('submit', async (event) => {
         displayErrors('Something went wrong.');
     };
 });
+// ------------------------------------------------------------------
 
 // Form for changing password
 const passwordForm = document.getElementById('submitPassword');
@@ -149,3 +153,23 @@ passwordForm.addEventListener('submit', async (event) => {
         displayErrors('Something went wrong.');
     }
 });
+// ------------------------------------------------------------------
+
+// Changing Color Theme
+const theme = document.getElementById('theme');
+theme.addEventListener('change', (event) => {
+    event.preventDefault();
+    document.querySelector('body').dataset.theme = theme.value;
+
+})
+// Save theme
+const themeForm = document.getElementById('themeSettings');
+themeForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    localStorage.setItem('mytheme', theme.value);
+});
+// Set theme
+let savedTheme = localStorage.getItem('mytheme')
+if (savedTheme) {
+    document.querySelector('body').dataset.theme = savedTheme;
+}
