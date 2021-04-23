@@ -23,3 +23,9 @@ export function emptyFields() {
         element.value = '';
     });
 }
+
+export function clearFeedback() {
+    document.querySelectorAll('.feedback').forEach(element => {
+        element.remove();
+    });
+}

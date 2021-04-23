@@ -89,7 +89,7 @@ signupForm.addEventListener('submit', async (event) => {
         emptyFields();
         return;
     }
-    if (password.length < 5) {
+    if (password.length < 4) {
         displayErrors('Password too short (min. 4)');
         emptyFields();
         return;

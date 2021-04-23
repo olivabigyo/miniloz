@@ -1,4 +1,5 @@
 <?php
+require_once 'DB.class.php';
 
 class User implements JsonSerializable
 {
@@ -32,7 +33,12 @@ class User implements JsonSerializable
         $name = validate($payload->name, 'name');
         $password = validate($payload->password, 'password');
 
-        // TODO: check if username exists
+        // check if username exists
+        if (globalDB()->simpleQuery(
+            'SELECT id FROM user WHERE username = ?',
+            [$name])) {
+            throw new Exception('Username exists.');
+        }
 
         // Insert in DB
         $passwordHash = password_hash($password, PASSWORD_DEFAULT);

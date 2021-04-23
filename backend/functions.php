@@ -27,9 +27,9 @@ function validate($input, $kind)
     // validate length or size
     if ($kind == 'name') {
         if (strlen($cleanInput) < 3) {
-            exitWithError('Name too short (min 2)');
+            exitWithError('Name too short (min. 3)');
         } else if (strlen($cleanInput) > 50) {
-            exitWithError('Name too long (max 50)');
+            exitWithError('Name too long (max. 50)');
         } else {
             return $cleanInput;
         }
@@ -49,14 +49,14 @@ function validate($input, $kind)
         }
     }
     if ($kind == 'roomsize') {
-        if (is_int($cleanInput) && ($cleanInput > 2) && ($cleanInput < 30)) {
+        if ($cleanInput >= 2 && $cleanInput <= 30) {
             return $cleanInput;
         } else {
             exitWithError('Roomsize should be between 2 and 30');
         }
     }
     if ($kind == 'density') {
-        if (is_numeric($cleanInput) && ($cleanInput > 0) && ($cleanInput <= 1)) {
+        if ($cleanInput >= 0 && $cleanInput <= 1) {
             return $cleanInput;
         } else {
             exitWithError('Density should be between 0 and 1');

@@ -2,6 +2,7 @@
 
 import { loggedIn } from './user.js';
 import { updateRoomList } from './room.js';
+import { clearFeedback } from './feedback.js';
 
 // ******************************************************************
 // *********************** THE NAVIGATION ***************************
@@ -37,6 +38,7 @@ export function go(sectionName, replace) {
     } else {
         history.pushState({ section: sectionName }, '', '#' + sectionName);
     }
+    clearFeedback();
 }
 
 window.addEventListener('popstate', (event) => {
