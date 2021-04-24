@@ -35,6 +35,9 @@ export function startGame(gameData, gameName) {
             tile.c = c;
             elem.addEventListener('click', () => {
                 clicked(tile);
+                if (isWin(game)) {
+                    setTimeout(endGame, 1000);
+                }
             });
             c++;
         }
@@ -110,7 +113,7 @@ const LEFT = 3;
 
 // Mark a tile if it is connected in all side with neigbours
 function isConnected(tile) {
-    if (tile == nullTile) return;
+    if (tile == nullTile) return true;
     // using the rotation and connections-string of the tile we know
     // which side of the tile has a pipe-part to connect (1) and which hasn't (0)
     if (
@@ -126,9 +129,31 @@ function isConnected(tile) {
         // tile is connected in all sides
         tile.elem.style.opacity = 1;
         tile.elem.style.border = 'none';
+        return true;
     } else {
         // at least on side doesn't fit with the neigbour tile
         tile.elem.style.opacity = 0.7;
         tile.elem.style.border = '1px solid rgb(148, 148, 148)';
+        return false;
     }
+}
+
+function isWin(game) {
+    for (const row of game.tiles) {
+        for (const tile of row) {
+            if (!isConnected(tile)) {
+                // console.log('not yet')
+                return false;
+            }
+        }
+    }
+    console.log('You win');
+    return true;
+}
+
+function endGame() {
+    const smile = document.createElement('div');
+    smile.classList.add('win');
+    playground.appendChild(smile);
+    setTimeout(() => { smile.classList.add('hidden') }, 1900);
 }

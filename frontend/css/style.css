@@ -88,7 +88,7 @@ body[data-theme="Madrid"] {
 /* new theme */
 body[data-theme="Rome"] {
     --body-bg-color: #FFF7EB;
-    --body-color: #289E77;
+    --body-color: #116d4e;
     --nav-color: rgba(0, 0, 0, .5);
     --nav-hover-color: rgba(0, 0, 0, .7);
     --btn-bg-color: #B8DF91;
@@ -136,6 +136,7 @@ body {
     grid-gap: 0px 0px;
     background-color: #f0f0f0;
     border: 2px solid var(--game-border);
+    position: relative;
 }
 
 .tile {
@@ -276,6 +277,27 @@ table td {
 
 #chatbox #newmessage {
     padding: 1.4rem;
+}
+
+/* Game ending */
+
+.win {
+    width: 600px;
+    height: 600px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background-image: url(../img/smile-regular.svg);
+    background-repeat: no-repeat;
+    background-size: 350px;
+    background-position: center;
+    animation: fade-out 2s;
+}
+
+@keyframes fade-out {
+    0%     {    transform: scale(1); opacity: 1;}
+    100%   {    transform: scale(2); opacity: 0;}
 }
 
 /* Other */
