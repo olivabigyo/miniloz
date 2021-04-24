@@ -2,6 +2,7 @@
 
 require_once 'User.class.php';
 require_once 'Game.class.php';
+require_once 'Move.class.php';
 
 class Room implements JsonSerializable
 {
@@ -28,7 +29,8 @@ class Room implements JsonSerializable
         ];
     }
 
-    public static function getRoom($id) {
+    public static function getRoom($id)
+    {
         $stmt = globalDB()->prepare(
             'SELECT *, user.username FROM rooms JOIN user ON rooms.creator = user.id WHERE rooms.id = :id'
         );
@@ -36,7 +38,7 @@ class Room implements JsonSerializable
         $stmt->execute();
         $row = $stmt->fetch();
         if (!$row) {
-            throw new Exception("Room $id not found");
+            throw new Exception("Room #$id not found");
         }
 
         $creator = new User($row->creator, $row->username);
@@ -52,7 +54,8 @@ class Room implements JsonSerializable
         return $room;
     }
 
-    public static function createRoom($user, $payload) {
+    public static function createRoom($user, $payload)
+    {
         // Validate input
         $name = validate($payload->name, 'name');
         $w = validate($payload->size, 'roomsize');
@@ -64,9 +67,10 @@ class Room implements JsonSerializable
         // check if username exists
         if (globalDB()->simpleQuery(
             'SELECT id FROM rooms WHERE name = ?',
-            [$name])) {
+            [$name]
+        )) {
             throw new Exception('Roomname exists.');
-            }
+        }
 
         // TODO: generate with a fix seed and store the seed in params too
         $params = ['size' => $w, 'density' => $density];
@@ -87,7 +91,8 @@ class Room implements JsonSerializable
         return Room::getRoom($id);
     }
 
-    public static function listRooms() {
+    public static function listRooms()
+    {
         $rooms = [];
 
         $stmt = globalDB()->executeQuery(
@@ -109,5 +114,67 @@ class Room implements JsonSerializable
         }
 
         return $rooms;
+    }
+
+    public static function makeMove($user, $payload)
+    {
+        $db = globalDB();
+        $db->beginTransaction();
+
+        $roomId = $payload->roomId;
+
+        $stmt = globalDB()->prepare(
+            'SELECT * FROM rooms WHERE rooms.id = :id FOR UPDATE'
+        );
+        $stmt->bindValue(':id', $roomId, PDO::PARAM_INT);
+        $stmt->execute();
+        $row = $stmt->fetch();
+        if (!$row) {
+            exitWithError("Room #$roomId not found");
+        }
+
+        $game = unserialize($row->game);
+        $moveCount = $row->moveCount;
+
+        $r = $payload->r;
+        $c = $payload->c;
+        $rot = $payload->rot;
+        // This also validates the parameters:
+        $game->makeMove($r, $c, $rot);
+
+        // INSERT the move into the moves table
+        $move = new Move($r, $c, $rot);
+        $stmt = $db->prepare('INSERT INTO moves (room, user, moveNumber, move)
+                              VALUES (:room, :user, :moveNumber, :move)');
+        $stmt->bindValue(':room', $roomId, PDO::PARAM_INT);
+        $stmt->bindValue(':user', $user->getId(), PDO::PARAM_INT);
+        $stmt->bindValue(':moveNumber', $moveCount, PDO::PARAM_INT);
+        $stmt->bindValue(':move', serialize($move), PDO::PARAM_LOB);
+        $stmt->execute();
+
+        // UPDATE the game state
+        $stmt = $db->prepare('UPDATE rooms SET modified = :modified, moveCount = :moveCount, game = :game
+                              WHERE id = :id');
+        $stmt->bindValue(':modified', time(), PDO::PARAM_INT);
+        $stmt->bindValue(':moveCount', $moveCount+1, PDO::PARAM_INT);
+        $stmt->bindValue(':game', serialize($game), PDO::PARAM_LOB);
+        $stmt->bindValue(':id', $roomId, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $db->commit();
+    }
+
+    public static function getMoves($payload) {
+        $stmt = globalDB()->prepare('SELECT move FROM moves
+                                     WHERE room = :room AND moveNumber >= :moveNumber
+                                     ORDER BY moveNumber ASC LIMIT 20');
+        $stmt->bindValue(':room', $payload->roomId, PDO::PARAM_INT);
+        $stmt->bindValue(':moveNumber', $payload->fromMove, PDO::PARAM_INT);
+        $stmt->execute();
+        $moves = [];
+        while ($move = $stmt->fetchColumn()) {
+            $moves[] = unserialize($move);
+        }
+        return $moves;
     }
 }

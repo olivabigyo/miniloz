@@ -41,6 +41,8 @@ $validActions = array(
     'listRooms',
     'getNewRoom',
     'getRoom',
+    'makeMove',
+    'getMoves',
 );
 
 if (!in_array($action, $validActions)) {

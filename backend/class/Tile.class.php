@@ -39,6 +39,10 @@ class Tile implements JsonSerializable
         $this->rot = rand(0, 3);
     }
 
+    public function rotate($rot) {
+        $this->rot = ($this->rot + 4 + $rot) % 4;
+    }
+
     public function jsonSerialize()
     {
         return array(

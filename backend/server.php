@@ -53,6 +53,15 @@ function handleRequest($action, $payload)
         return ['room' => Room::getRoom($payload->id)];
     }
 
+    if ($action === 'makeMove') {
+        Room::makeMove($user, $payload);
+        return [];
+    }
+
+    if ($action === 'getMoves') {
+        return ['moves' => Room::getMoves($payload)];
+    }
+
     // Chat stuff
     if ($action === 'getMessages') {
         return ['messages' => Chat::getMessages()];

@@ -82,4 +82,18 @@ class Game implements JsonSerializable
             'tiles' => $tiles
         );
     }
+
+    // Validates the parameters
+    public function makeMove($r, $c, $rot)
+    {
+        if (
+            $r < 0 || $r >= $this->h ||
+            $c < 0 || $c >= $this->w ||
+            $rot < -3 || $rot > 3
+        ) {
+            exitWithError('Invalid move');
+        }
+
+        $this->tiles[$r][$c]->rotate($rot);
+    }
 }
