@@ -49,7 +49,7 @@ function handleRequest($action, $payload)
         return ['room' => Room::createRoom($user, $payload)];
     }
 
-    if ($action === 'getIntoRoom') {
+    if ($action === 'getRoom') {
         return ['room' => Room::getRoom($payload->id)];
     }
 

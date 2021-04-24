@@ -33,7 +33,7 @@ export async function updateRoomList() {
 async function roomButtonClick(event) {
     event.preventDefault();
     const id = event.currentTarget.dataset.room;
-    const data = await sendRequest('getIntoRoom', { id });
+    const data = await sendRequest('getRoom', { id });
     if (!data) return;
 
     startGame(data.room.game, data.room.name);
