@@ -4,6 +4,7 @@ import { sendRequest } from './request.js';
 import { initSectionFromHash } from './navi.js';
 import { startChat, stopChat } from './chat.js';
 import { startRooms, stopRooms, updateRoomList } from './room.js';
+import { displayErrors } from './feedback.js';
 
 let theUser;
 
@@ -31,12 +32,17 @@ export function onLoggedOut() {
 export async function initUserStuff() {
     const status = await sendRequest('checkLogin', {});
 
-    if (status.loggedIn) {
+    if (!status) {
+        displayErrors('Error connecting to server');
+    }
+
+    const loggedIn = !! status?.loggedIn;
+    if (loggedIn) {
         onLoggedIn(status.user);
     } else {
         onLoggedOut();
     }
-    initSectionFromHash(status.loggedIn);
+    initSectionFromHash(loggedIn);
 }
 
 export function loggedIn() {
