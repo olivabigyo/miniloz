@@ -66,7 +66,7 @@ function rotated(tile, rot) {
     // rotate
     tile.elem.style.transform = `rotate(${tile.deg}deg)`;
     // mark new connections and check for win
-    // TODO: remove? checkConnections(tile);
+    checkConnections(tile);
     if (isWin()) {
         setTimeout(endGame, 1000);
     }
