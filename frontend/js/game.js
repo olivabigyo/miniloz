@@ -1,5 +1,7 @@
 'use strict';
 
+import { sendRequest } from "./request.js";
+
 // ******************************************************************
 // ************************ THE GAME ********************************
 // ******************************************************************
@@ -8,12 +10,15 @@ const playground = document.getElementById('canvas');
 // We use the null tile as imaginary neighbour for the tiles on the edges
 // We need this for checking if the tile is connected on each side to the neighbours
 const nullTile = { image: '', connections: '0000', rotation: 0 };
-let game = {};
+let game;
+let room;
+let fetcher;
 
 // Initialize game from game object
-export function startGame(gameData, gameName) {
-    game = gameData;
-    document.getElementById('game-name').innerText = `Game: ${gameName}`;
+export function startGame(aroom) {
+    room = aroom;
+    game = room.game;
+    document.getElementById('game-name').innerText = `Game: ${room.name}`;
     playground.innerHTML = "";
     const tilewidth = Math.floor(600 / game.w);
     playground.style.gridTemplateColumns = `repeat(${game.w}, ${tilewidth}px)`;
@@ -35,9 +40,6 @@ export function startGame(gameData, gameName) {
             tile.c = c;
             elem.addEventListener('click', () => {
                 clicked(tile);
-                if (isWin(game)) {
-                    setTimeout(endGame, 1000);
-                }
             });
             c++;
         }
@@ -49,16 +51,46 @@ export function startGame(gameData, gameName) {
             isConnected(tile);
         }
     }
+    // Start fetching moves
+    if (fetcher) {
+        clearInterval(fetcher);
+    }
+    fetcher = setInterval(fetchMoves, 3000);
+    // TODO: cancel this when we leave the game
 }
 
-function clicked(tile) {
+function rotated(tile, rot) {
     // increase values
-    tile.rotation = (tile.rotation + 1) % 4;
-    tile.deg += 90;
+    tile.rotation = (tile.rotation + 4 + rot) % 4;
+    tile.deg += 90 * rot;
     // rotate
     tile.elem.style.transform = `rotate(${tile.deg}deg)`;
-    // mark new connections
-    checkConnections(tile);
+    // mark new connections and check for win
+    // TODO: remove? checkConnections(tile);
+    if (isWin()) {
+        setTimeout(endGame, 1000);
+    }
+}
+
+async function clicked(tile) {
+    // TODO: what if the request failes? Our move will be ignored
+    await sendRequest('makeMove', { roomId: room.id, r: tile.r, c: tile.c, rot: 1 });
+    return fetchMoves();
+}
+
+async function fetchMoves() {
+    let moveCount = room.moveCount;
+    const data = await sendRequest('getMoves', { roomId: room.id, fromMove: moveCount });
+    if (!data) return;
+
+    for (const move of data.moves) {
+        // This check is necessary to avoid race conditions from two fetchMoves running concurrently
+        if (moveCount >= room.moveCount) {
+            rotated(getTile(move.r, move.c), move.rot);
+            room.moveCount++;
+        }
+        moveCount++;
+    }
 }
 
 // Mark the clicked tile and neighbours if connected
@@ -138,7 +170,7 @@ function isConnected(tile) {
     }
 }
 
-function isWin(game) {
+function isWin() {
     for (const row of game.tiles) {
         for (const tile of row) {
             if (!isConnected(tile)) {

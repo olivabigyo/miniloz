@@ -27,7 +27,7 @@ newRoomForm.addEventListener('submit', async (event) => {
 
     const data = await sendRequest('getNewRoom', { name, size, density });
     if (!data) return;
-    startGame(data.room.game, data.room.name);
+    startGame(data.room);
     go('game');
 });
 // ------------------------------------------------------------------

@@ -36,7 +36,7 @@ async function roomButtonClick(event) {
     const data = await sendRequest('getRoom', { id });
     if (!data) return;
 
-    startGame(data.room.game, data.room.name);
+    startGame(data.room);
     go('game');
 }
 
