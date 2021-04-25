@@ -1,7 +1,7 @@
 'use strict';
 
 import { loggedIn } from './user.js';
-import { updateRoomList } from './room.js';
+import { goRoom, updateRoomList } from './room.js';
 import { clearFeedback } from './feedback.js';
 
 // ******************************************************************
@@ -31,12 +31,16 @@ function makeActive(sectionName) {
     window.scrollTo(0, 0);
 }
 
-export function go(sectionName, replace) {
+export function go(sectionName, options) {
     makeActive(sectionName);
-    if (replace) {
-        history.replaceState({ section: sectionName}, '', '#' + sectionName);
+    let url = '#' + sectionName;
+    if (options?.params) {
+        url += '?' + options.params;
+    }
+    if (options?.replace) {
+        history.replaceState({ section: sectionName }, '', url);
     } else {
-        history.pushState({ section: sectionName }, '', '#' + sectionName);
+        history.pushState({ section: sectionName }, '', url);
     }
     clearFeedback();
 }
@@ -58,7 +62,10 @@ export function initSectionFromHash(loggedIn) {
 
         const hash = location.hash.substr(1);
         if (hash == 'home') {
-            go('rooms', true);
+            go('rooms', { replace: true });
+        } else if (hash.startsWith('game?')) {
+            const params = new URLSearchParams(hash.substr(5));
+            goRoom(params.get('id'), true);
         } else {
             makeActive(hash);
         }
@@ -69,7 +76,7 @@ export function initSectionFromHash(loggedIn) {
     if (!location.hash || location.hash == '#home') {
         makeActive('home');
     } else {
-        go('home', true);
+        go('home', { replace: true });
     }
 }
 

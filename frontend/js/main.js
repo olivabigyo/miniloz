@@ -2,9 +2,9 @@
 
 import { sendRequest } from './request.js';
 import * as User from './user.js';
-import { startGame } from './game.js';
 import { go } from './navi.js';
 import { displayErrors, clearPasswordFields } from './feedback.js';
+import { goRoom } from './room.js';
 
 User.initUserStuff();
 
@@ -27,8 +27,7 @@ newRoomForm.addEventListener('submit', async (event) => {
 
     const data = await sendRequest('getNewRoom', { name, size, density });
     if (!data) return;
-    startGame(data.room);
-    go('game');
+    goRoom(data.roomId);
 });
 // ------------------------------------------------------------------
 

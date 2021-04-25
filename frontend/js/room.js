@@ -36,7 +36,7 @@ export async function updateRoomList() {
           <td>${room.name}</td>
           <td>${room.size}x${room.size}</td>
           <td>${age}</td>
-          <td><button type="submit" data-room="${room.id}" class="btn btn-sm btn-theme go-room">Step in</button></td>
+          <td><a href="#game?id=${room.id}" data-room="${room.id}" class="btn btn-sm btn-theme go-room">Step in</a></td>
         </tr>`;
         i++;
     }
@@ -46,14 +46,18 @@ export async function updateRoomList() {
     }
 }
 
-async function roomButtonClick(event) {
-    event.preventDefault();
-    const id = event.currentTarget.dataset.room;
+export async function goRoom(id, replace) {
     const data = await sendRequest('getRoom', { id });
     if (!data) return;
 
     startGame(data.room);
-    go('game');
+    go('game', { params: `id=${id}`, replace });
+}
+
+function roomButtonClick(event) {
+    event.preventDefault();
+    const id = event.currentTarget.dataset.room;
+    goRoom(id);
 }
 
 let roomUpdater;
