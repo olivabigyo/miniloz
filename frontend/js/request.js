@@ -6,8 +6,8 @@ import { displayErrors } from './feedback.js';
 // ************************* THE REQUEST ****************************
 // ******************************************************************
 
-const apiEndpoint = '../backend/server.php';
-// const apiEndpoint = 'https://amongus.olivabigyo.site/loops/backend/server.php';
+// const apiEndpoint = '../backend/server.php';
+const apiEndpoint = 'https://amongus.olivabigyo.site/loops/backend/server.php';
 
 export async function sendRequest(action, payload) {
 
