@@ -46,7 +46,7 @@ function handleRequest($action, $payload)
     }
 
     if ($action === 'getNewRoom') {
-        return ['room' => Room::createRoom($user, $payload)];
+        return ['roomId' => Room::createRoom($user, $payload)];
     }
 
     if ($action === 'getRoom') {

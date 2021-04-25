@@ -88,7 +88,7 @@ class Room implements JsonSerializable
         $stmt->execute();
         $id = globalDB()->lastInsertId();
 
-        return Room::getRoom($id);
+        return $id;
     }
 
     public static function listRooms()
