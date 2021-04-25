@@ -14,7 +14,23 @@ export async function updateRoomList() {
     const now = Math.floor(Date.now() / 1000);
     let i = 1;
     for (const room of data.rooms) {
-        const age = `${now - room.modified} secs ago`;
+        const sec = now - room.modified;
+        // Last activity in seconds
+        let age = `${sec} secs ago`;
+        // Last activity in minutes after 3 minutes
+        if (sec > 180 && sec <= 5400) {
+            age = `${Math.floor(sec / 60)} mins ago`;
+        }
+        // Last activity in hours after 90 minutes
+        if (sec > 5400 && sec <= 129600) {
+            age = `${Math.floor(sec / 3600)} hours ago`;
+
+        }
+        // Last acitvity in days after 36 hour
+        if (sec > 129600) {
+            age = `${Math.floor(sec / 86400)} days ago`;
+
+        }
         table.innerHTML += `<tr>
           <td>${i}</td>
           <td>${room.name}</td>
