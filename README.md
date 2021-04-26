@@ -1,9 +1,10 @@
 # Rooms of Loops
 
 Author: Katalin Lukacsne Toth
+
 Version: 1.0.0
 
-By making this game I wanted to create a place where people can play together. Where you can share a room with others or just play alone. A game which is easy to learn, yet difficult to put down. I chose to develop my version of the puzzle game ``Loops of Zen''. Intuitive gameplay -- tap tiles to rotate and complete the loops. :)
+By making this game I wanted to create a place where people can play together. Where you can share a room with others or just play alone. A game which is easy to learn, yet difficult to put down. I chose to develop my version of the puzzle game “Loops of Zen”. Intuitive gameplay — tap tiles to rotate and complete the loops. :)
 
 ---
 
