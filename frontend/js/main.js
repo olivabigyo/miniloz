@@ -3,7 +3,7 @@
 import { sendRequest } from './request.js';
 import * as User from './user.js';
 import { go } from './navi.js';
-import { displayErrors, clearPasswordFields } from './feedback.js';
+import { displayErrors, clearPasswordFields, clearFeedback } from './feedback.js';
 import { goRoom } from './room.js';
 
 User.initUserStuff();
@@ -139,13 +139,15 @@ const theme = document.getElementById('theme');
 theme.addEventListener('change', (event) => {
     event.preventDefault();
     document.querySelector('body').dataset.theme = theme.value;
-
+    clearFeedback();
 })
 // Save theme
 const themeForm = document.getElementById('themeSettings');
 themeForm.addEventListener('submit', (event) => {
     event.preventDefault();
+    clearFeedback();
     localStorage.setItem('mytheme', theme.value);
+    displayErrors('We saved this theme for future visits.', false);
 });
 // Set theme
 let savedTheme = localStorage.getItem('mytheme')
