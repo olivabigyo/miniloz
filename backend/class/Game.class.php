@@ -28,7 +28,7 @@ class Game implements JsonSerializable
         // Randomize the values only of the inner walls
         for ($r = 0; $r < $h; $r++) {
             for ($c = 1; $c < $w; $c++) {
-                $vWalls[$r][$c] = rand(0, 1);
+                $vWalls[$r][$c] = intval(rand(0, 100) <= $density);
             }
         }
         $hWalls = array();
@@ -39,7 +39,7 @@ class Game implements JsonSerializable
         // Randomize the values only of the inner walls
         for ($r = 1; $r < $h; $r++) {
             for ($c = 0; $c < $w; $c++) {
-                $hWalls[$r][$c] = rand(0, 1);
+                $hWalls[$r][$c] = intval(rand(0, 100) <= $density);
             }
         }
         // Create tiles

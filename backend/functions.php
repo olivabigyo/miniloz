@@ -56,10 +56,10 @@ function validate($input, $kind)
         }
     }
     if ($kind == 'density') {
-        if ($cleanInput >= 0 && $cleanInput <= 1) {
+        if ($cleanInput >= 0 && $cleanInput <= 100) {
             return $cleanInput;
         } else {
-            exitWithError('Density should be between 0 and 1');
+            exitWithError('Density should be between 0 and 100');
         }
     }
 }
