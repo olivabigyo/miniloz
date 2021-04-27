@@ -78,7 +78,7 @@ For example, this is the very first request that the app does, to determine whet
 ### Database
 
 User data, chat messages, the rooms with game states and the game moves are stored in a MySQL database with the following schema:
-(screenshot)
+![DB](loops-ERDiagram.png)
 
 ### Game
 
