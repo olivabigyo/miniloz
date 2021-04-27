@@ -49,7 +49,7 @@ The app uses asynchronous game-state updates and the chat also uses asynchronous
 The app sends automatic requests to the server to update the chat messages, the room list and the game state of the active game.
 (Everything is awes..s..synchronous!)
 
-The whole API currently consists of ## different request, which all follow the following simple pattern.
+The whole API currently consists of 12 different request, which all follow the following simple pattern.
 
 Request, Client -> Server: `{"action": ..., "payload": ...}`
 
@@ -78,7 +78,7 @@ For example, this is the very first request that the app does, to determine whet
 ### Database
 
 User data, chat messages, the rooms with game states and the game moves are stored in a MySQL database with the following schema:
-![DB](loops-ERDiagram.png)
+![DB](loops_ERDiagram.png)
 
 ### Game
 
