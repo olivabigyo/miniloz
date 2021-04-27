@@ -48,7 +48,6 @@ async function addMessage(event) {
 
     const reply = await sendRequest('addMessage', { content: message.value });
     if (reply) {
-        // console.log('Message successfully sent.');
         message.value = '';
         // we repopulate the site and don't wait for the automatic repopulation which only happens in every 2 seconds
         getMessages();
@@ -72,8 +71,8 @@ export function startChat() {
         console.error('startChat was called while chat was already running!');
         clearInterval(messageChecker);
     }
-    // We want to update in every ... seconds
-    messageChecker = setInterval(getMessages, 60000);
+    // We want to update in every 3 seconds
+    messageChecker = setInterval(getMessages, 3000);
 }
 
 export function stopChat() {

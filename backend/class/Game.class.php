@@ -16,8 +16,6 @@ class Game implements JsonSerializable
 
     public static function generate($w, $h, $density)
     {
-        // TODO: hasznalni a $densityt
-
         // First we decide which walls are connected in the room
         // We use an array for vertical walls and an array for the horizontal walls
         $vWalls = array();

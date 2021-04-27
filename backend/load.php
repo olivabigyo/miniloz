@@ -1,6 +1,4 @@
 <?php
-// TODO: atnevezni ezt a fajlt
-
 require_once 'functions.php';
 require_once 'prefs/config.php';
 require_once 'class/DB.class.php';

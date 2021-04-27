@@ -55,7 +55,7 @@ export function startGame(aroom) {
     if (fetcher) {
         clearInterval(fetcher);
     }
-    fetcher = setInterval(fetchMoves, 3000);
+    fetcher = setInterval(fetchMoves, 1000);
     // TODO: cancel this when we leave the game
 }
 
@@ -174,12 +174,10 @@ function isWin() {
     for (const row of game.tiles) {
         for (const tile of row) {
             if (!isConnected(tile)) {
-                // console.log('not yet')
                 return false;
             }
         }
     }
-    console.log('You win');
     return true;
 }
 

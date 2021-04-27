@@ -23,7 +23,6 @@ newRoomForm.addEventListener('submit', async (event) => {
     const name = document.getElementById('roomname').value;
     const size = document.getElementById('roomsize').value;
     const density = document.getElementById('roomdensity').value;
-    console.log(name, size, density);
 
     const data = await sendRequest('getNewRoom', { name, size, density });
     if (!data) return;
