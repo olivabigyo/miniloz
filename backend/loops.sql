@@ -1,132 +1,101 @@
--- phpMyAdmin SQL Dump
--- version 5.0.2
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: Apr 19, 2021 at 07:12 PM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.4.10
+-- MySQL Workbench Forward Engineering
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema loops
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema loops
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `loops` DEFAULT CHARACTER SET utf8mb4 ;
+USE `loops` ;
+
+-- -----------------------------------------------------
+-- Table `loops`.`user`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `loops`.`user` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(50) NOT NULL,
+  `password` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `username` (`username` ASC))
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8mb4;
 
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+-- -----------------------------------------------------
+-- Table `loops`.`messages`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `loops`.`messages` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(255) NOT NULL,
+  `content` TEXT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `username_idx` (`name` ASC),
+  CONSTRAINT `username`
+    FOREIGN KEY (`name`)
+    REFERENCES `loops`.`user` (`username`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8mb4;
 
---
--- Database: `loops`
---
 
--- --------------------------------------------------------
+-- -----------------------------------------------------
+-- Table `loops`.`rooms`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `loops`.`rooms` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(50) NOT NULL,
+  `creator` INT(11) NOT NULL,
+  `params` VARCHAR(255) NOT NULL,
+  `modified` BIGINT(20) NOT NULL,
+  `moveCount` INT(11) NOT NULL,
+  `game` MEDIUMBLOB NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `name` (`name` ASC),
+  INDEX `user_id_idx` (`creator` ASC),
+  CONSTRAINT `user_id`
+    FOREIGN KEY (`creator`)
+    REFERENCES `loops`.`user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8mb4;
 
---
--- Table structure for table `messages`
---
 
-CREATE TABLE `messages` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `content` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+-- -----------------------------------------------------
+-- Table `loops`.`moves`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `loops`.`moves` (
+  `room` INT(11) NOT NULL,
+  `user` INT(11) NOT NULL,
+  `moveNumber` INT(11) NOT NULL,
+  `move` TINYBLOB NOT NULL,
+  PRIMARY KEY (`room`,`moveNumber`),
+  INDEX `room_id_idx` (`room` ASC),
+  INDEX `userid_idx` (`user` ASC),
+  CONSTRAINT `room_id`
+    FOREIGN KEY (`room`)
+    REFERENCES `loops`.`rooms` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+  CONSTRAINT `userid`
+    FOREIGN KEY (`user`)
+    REFERENCES `loops`.`user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `moves`
---
-
-CREATE TABLE `moves` (
-  `room` int(11) NOT NULL,
-  `user` int(11) NOT NULL,
-  `moveNumber` int(11) NOT NULL,
-  `move` tinyblob NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `rooms`
---
-
-CREATE TABLE `rooms` (
-  `id` int(11) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `creator` int(11) NOT NULL,
-  `params` varchar(255) NOT NULL,
-  `modified` bigint(20) NOT NULL,
-  `moveCount` int(11) NOT NULL,
-  `game` blob NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user`
---
-
-CREATE TABLE `user` (
-  `id` int(11) NOT NULL,
-  `username` varchar(55) NOT NULL,
-  `password` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `messages`
---
-ALTER TABLE `messages`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `moves`
---
-ALTER TABLE `moves`
-  ADD PRIMARY KEY (`room`,`moveNumber`);
-
---
--- Indexes for table `rooms`
---
-ALTER TABLE `rooms`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `name` (`name`);
-
---
--- Indexes for table `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `username` (`username`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `messages`
---
-ALTER TABLE `messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
-
---
--- AUTO_INCREMENT for table `rooms`
---
-ALTER TABLE `rooms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
-
---
--- AUTO_INCREMENT for table `user`
---
-ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
