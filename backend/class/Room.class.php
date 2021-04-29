@@ -71,7 +71,6 @@ class Room implements JsonSerializable
             throw new Exception('Roomname exists.');
         }
 
-        // TODO: generate with a fix seed and store the seed in params too
         $params = ['size' => $w, 'density' => $density];
         // Insert into DB
         $stmt = globalDB()->prepare(

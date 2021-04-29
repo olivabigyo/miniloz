@@ -88,8 +88,6 @@ signupForm.addEventListener('submit', async (event) => {
         return;
     }
 
-    // TODO: username exist on the flight validate
-
     // Send request
     const data = await sendRequest('createUser', { name, password: password });
     if (!data) return;
