@@ -5,6 +5,7 @@ import { initSectionFromHash } from './navi.js';
 import { startChat, stopChat } from './chat.js';
 import { startRooms, stopRooms, updateRoomList } from './room.js';
 import { displayErrors } from './feedback.js';
+import { stopGame } from './game.js';
 
 let theUser;
 
@@ -26,6 +27,7 @@ export function onLoggedOut() {
     document.getElementById('profile-name').innerText = 'NoUser';
     stopChat();
     stopRooms();
+    stopGame();
 }
 
 export async function initUserStuff() {

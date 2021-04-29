@@ -52,11 +52,16 @@ export function startGame(aroom) {
         }
     }
     // Start fetching moves
+    stopGame();
+    fetcher = setInterval(fetchMoves, 1000);
+    // TODO: cancel this when we leave the game
+}
+
+export function stopGame() {
     if (fetcher) {
         clearInterval(fetcher);
     }
-    fetcher = setInterval(fetchMoves, 1000);
-    // TODO: cancel this when we leave the game
+    fetcher = undefined;
 }
 
 function rotated(tile, rot) {
