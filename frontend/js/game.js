@@ -45,7 +45,7 @@ export function startGame(aroom) {
         }
         r++;
     }
-    // Mark the connected tiles
+    // Mark the connected tiles (opacity and border)
     for (const row of game.tiles) {
         for (const tile of row) {
             isConnected(tile);
@@ -170,6 +170,7 @@ function isConnected(tile) {
     }
 }
 
+// check for win contidion
 function isWin() {
     for (const row of game.tiles) {
         for (const tile of row) {
@@ -181,6 +182,7 @@ function isWin() {
     return true;
 }
 
+// show endgame animation
 function endGame() {
     const smile = document.createElement('div');
     smile.classList.add('win');

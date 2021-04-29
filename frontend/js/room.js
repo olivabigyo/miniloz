@@ -4,6 +4,10 @@ import { sendRequest } from './request.js';
 import { startGame } from './game.js';
 import { go } from './navi.js';
 
+// ------------------------------------------------------------------
+// Fetch recently created/active roomlist
+// ------------------------------------------------------------------
+
 export async function updateRoomList() {
     const data = await sendRequest('listRooms', {});
     if (!data) return;
@@ -24,7 +28,6 @@ export async function updateRoomList() {
         // Last activity in hours after 90 minutes
         if (sec > 5400 && sec <= 129600) {
             age = `${Math.floor(sec / 3600)} hours ago`;
-
         }
         // Last acitvity in days after 36 hour
         if (sec > 129600) {
@@ -46,6 +49,10 @@ export async function updateRoomList() {
     }
 }
 
+// ------------------------------------------------------------------
+// Fetch room data and initialize game
+// ------------------------------------------------------------------
+
 export async function goRoom(id, replace) {
     const data = await sendRequest('getRoom', { id });
     if (!data) return;
@@ -60,6 +67,10 @@ function roomButtonClick(event) {
     goRoom(id);
 }
 
+// ------------------------------------------------------------------
+// Update periodically
+// ------------------------------------------------------------------
+
 let roomUpdater;
 
 export function startRooms() {
@@ -67,7 +78,7 @@ export function startRooms() {
         console.error('Rooms started while already running');
         clearInterval(roomUpdater);
     }
-    roomUpdater = setInterval(updateRoomList, 50000);
+    roomUpdater = setInterval(updateRoomList, 5000);
 }
 
 export function stopRooms() {

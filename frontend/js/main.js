@@ -20,10 +20,11 @@ User.initUserStuff();
 const newRoomForm = document.getElementById('submitNewRoom');
 newRoomForm.addEventListener('submit', async (event) => {
     event.preventDefault();
+    // values
     const name = document.getElementById('roomname').value;
     const size = document.getElementById('roomsize').value;
     const density = document.getElementById('roomdensity').value;
-
+    // send request
     const data = await sendRequest('getNewRoom', { name, size, density });
     if (!data) return;
     goRoom(data.roomId);
@@ -36,9 +37,7 @@ loginForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     // values
     const name = document.getElementById('username').value;
-    const passwordField = document.getElementById('password');
-    const password = passwordField.value;
-
+    const password = document.getElementById('password').value;
     // send request
     const data = await sendRequest('login', { name, password });
     if (data) {
@@ -106,7 +105,7 @@ const passwordForm = document.getElementById('submitPassword');
 passwordForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     // values
-    let password = document.getElementById('passwordEx').value;
+    let password = document.getElementById('passwordPwSec').value;
     let newpassword = document.getElementById('passwordNew').value;
     let newpassword2 = document.getElementById('passwordNewRep').value;
     // validate values

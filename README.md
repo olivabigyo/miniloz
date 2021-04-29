@@ -30,7 +30,7 @@ $db_host  = 'localhost';
 $db_port  = 3306;
 ```
 
-Initialize the database from `backend/loops.sql`
+Initialize the database and fill it with sample data from `backend/loops.sql`
 
 You can also access a live version of the application at https://amongus.olivabigyo.site/loops/frontend/
 

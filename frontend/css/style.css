@@ -9,7 +9,7 @@
 
 /* Color and Font Variables */
 
-/* default theme */
+/* default light gray theme */
 body[data-theme="London"] {
     --body-bg-color: #f0f0f0;
     --body-color: black;
@@ -47,7 +47,7 @@ body[data-theme="Paris"] {
     --msg-bg-color: #6d335c;
 }
 
-/* blue theme */
+/* blue/dark theme */
 body[data-theme="Zurich"] {
     --body-bg-color: #071146;
     --body-color: white;
@@ -85,7 +85,7 @@ body[data-theme="Madrid"] {
     --msg-bg-color: #67989D;
 }
 
-/* new theme */
+/* warm light theme */
 body[data-theme="Rome"] {
     --body-bg-color: #FFF7EB;
     --body-color: #116d4e;
@@ -104,7 +104,11 @@ body[data-theme="Rome"] {
     --msg-bg-color: #ffbe6a;
 }
 
-
+body {
+    background-color: var(--body-bg-color);
+    color: var(--body-color);
+    font-family: var(--font-body);
+}
 
 /* for sticky footer */
 
@@ -120,31 +124,6 @@ body {
 
 footer {
     flex-shrink: 0;
-}
-
-body {
-    background-color: var(--body-bg-color);
-    color: var(--body-color);
-    font-family: var(--font-body);
-}
-
-#canvas {
-    width: 604px;
-    height: 604px;
-    margin: 15px auto;
-    display: grid;
-    grid-gap: 0px 0px;
-    background-color: #f0f0f0;
-    border: 2px solid var(--game-border);
-    position: relative;
-}
-
-.tile {
-    width: 60px;
-    height: 60px;
-    border: 1px solid var(--game-border);
-    opacity: 0.7;
-    transition: transform 0.8s;
 }
 
 /* Navigation */
@@ -279,7 +258,26 @@ table td {
     padding: 1.4rem;
 }
 
-/* Game ending */
+/* Game */
+
+#canvas {
+    width: 604px;
+    height: 604px;
+    margin: 15px auto;
+    display: grid;
+    grid-gap: 0px 0px;
+    background-color: #f0f0f0;
+    border: 2px solid var(--game-border);
+    position: relative;
+}
+
+.tile {
+    width: 60px;
+    height: 60px;
+    border: 1px solid var(--game-border);
+    opacity: 0.7;
+    transition: transform 0.8s;
+}
 
 .win {
     width: 600px;

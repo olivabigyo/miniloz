@@ -28,7 +28,7 @@ export async function sendRequest(action, payload) {
         // We do this instead of `request.json()` directly to help debugging of the server side.
         // Most PHP errors result in the response being invalid JSON (PHP error messages), so it's
         // very helpful to see it immediately in the console.
-        // Once the server side is stable, this can be turned back.
+        // Once the server side is stable, this can be turned back.  TODO: ez akkor most van?
         const body = await request.text();
         let data;
         try {
@@ -43,7 +43,7 @@ export async function sendRequest(action, payload) {
             displayErrors(data.error);
             return;
         }
-        // Remove in production
+        // Todo: Remove in production
         // console.log('Successful request.', data);
         return data;
 

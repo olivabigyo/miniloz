@@ -24,9 +24,11 @@ function makeActive(sectionName) {
     if (!sectionDict[sectionName]) {
         throw new Error('Bad section name: ' + sectionName);
     }
+    // hide all the sections
     for (const section of sections) {
         section.classList.remove('active');
     }
+    // display the chosen one
     sectionDict[sectionName].classList.add('active');
     window.scrollTo(0, 0);
 }

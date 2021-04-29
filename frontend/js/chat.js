@@ -38,7 +38,7 @@ function updateMessages(messages) {
 
 // ------------------------------------------------------------------
 // Submit the message
-// ----------------------
+// ------------------------------------------------------------------
 
 async function addMessage(event) {
     // async function, we don't want to reload the site
@@ -56,7 +56,7 @@ async function addMessage(event) {
 
 // ------------------------------------------------------------------
 // Initializing the chat module
-// -------------------------
+// ------------------------------------------------------------------
 
 // Event Listeners
 document.getElementById('chatform').addEventListener('submit', addMessage);
