@@ -1,15 +1,5 @@
 <?php
 
-function keys_are($data, $keys)
-{
-    if (!is_array($data) || !is_array($keys)) return false;
-    if (count($data) != count($keys)) return false;
-    foreach ($keys as $key) {
-        if (!isset($data[$key])) return false;
-    }
-    return true;
-}
-
 // Validation of user input
 
 function validate($input, $kind)
@@ -20,9 +10,7 @@ function validate($input, $kind)
     }
     // sanitize input
     $trimmedInput = trim($input);
-    $cleanInput = filter_var($trimmedInput, FILTER_SANITIZE_STRING);
-    $cleanInput = strip_tags($cleanInput);
-    htmlspecialchars($cleanInput);
+    $cleanInput = strip_tags($trimmedInput);
 
     // validate length or size
     if ($kind == 'name') {
@@ -56,7 +44,7 @@ function validate($input, $kind)
         }
     }
     if ($kind == 'density') {
-        if ($cleanInput >= 0 && $cleanInput <= 1) {
+        if ($cleanInput >= 0 && $cleanInput <= 100) {
             return $cleanInput;
         } else {
             exitWithError('Density should be between 0 and 1');

@@ -16,8 +16,6 @@ class Game implements JsonSerializable
 
     public static function generate($w, $h, $density)
     {
-        // TODO: hasznalni a $densityt
-
         // First we decide which walls are connected in the room
         // We use an array for vertical walls and an array for the horizontal walls
         $vWalls = array();
@@ -28,7 +26,7 @@ class Game implements JsonSerializable
         // Randomize the values only of the inner walls
         for ($r = 0; $r < $h; $r++) {
             for ($c = 1; $c < $w; $c++) {
-                $vWalls[$r][$c] = rand(0, 1);
+                $vWalls[$r][$c] = intval(rand(0, 100) <= $density);
             }
         }
         $hWalls = array();
@@ -39,7 +37,7 @@ class Game implements JsonSerializable
         // Randomize the values only of the inner walls
         for ($r = 1; $r < $h; $r++) {
             for ($c = 0; $c < $w; $c++) {
-                $hWalls[$r][$c] = rand(0, 1);
+                $hWalls[$r][$c] = intval(rand(0, 100) <= $density);
             }
         }
         // Create tiles

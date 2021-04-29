@@ -3,7 +3,7 @@
 import { sendRequest } from './request.js';
 import * as User from './user.js';
 import { go } from './navi.js';
-import { displayErrors, clearPasswordFields } from './feedback.js';
+import { displayErrors, clearPasswordFields, clearFeedback } from './feedback.js';
 import { goRoom } from './room.js';
 
 User.initUserStuff();
@@ -20,11 +20,11 @@ User.initUserStuff();
 const newRoomForm = document.getElementById('submitNewRoom');
 newRoomForm.addEventListener('submit', async (event) => {
     event.preventDefault();
+    // values
     const name = document.getElementById('roomname').value;
     const size = document.getElementById('roomsize').value;
     const density = document.getElementById('roomdensity').value;
-    console.log(name, size, density);
-
+    // send request
     const data = await sendRequest('getNewRoom', { name, size, density });
     if (!data) return;
     goRoom(data.roomId);
@@ -37,9 +37,7 @@ loginForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     // values
     const name = document.getElementById('username').value;
-    const passwordField = document.getElementById('password');
-    const password = passwordField.value;
-
+    const password = document.getElementById('password').value;
     // send request
     const data = await sendRequest('login', { name, password });
     if (data) {
@@ -90,8 +88,6 @@ signupForm.addEventListener('submit', async (event) => {
         return;
     }
 
-    // TODO: username exist on the flight validate
-
     // Send request
     const data = await sendRequest('createUser', { name, password: password });
     if (!data) return;
@@ -107,7 +103,7 @@ const passwordForm = document.getElementById('submitPassword');
 passwordForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     // values
-    let password = document.getElementById('passwordEx').value;
+    let password = document.getElementById('passwordPwSec').value;
     let newpassword = document.getElementById('passwordNew').value;
     let newpassword2 = document.getElementById('passwordNewRep').value;
     // validate values
@@ -139,13 +135,15 @@ const theme = document.getElementById('theme');
 theme.addEventListener('change', (event) => {
     event.preventDefault();
     document.querySelector('body').dataset.theme = theme.value;
-
+    clearFeedback();
 })
 // Save theme
 const themeForm = document.getElementById('themeSettings');
 themeForm.addEventListener('submit', (event) => {
     event.preventDefault();
+    clearFeedback();
     localStorage.setItem('mytheme', theme.value);
+    displayErrors('We saved this theme for future visits.', false);
 });
 // Set theme
 let savedTheme = localStorage.getItem('mytheme')

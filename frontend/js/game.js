@@ -45,18 +45,23 @@ export function startGame(aroom) {
         }
         r++;
     }
-    // Mark the connected tiles
+    // Mark the connected tiles (opacity and border)
     for (const row of game.tiles) {
         for (const tile of row) {
             isConnected(tile);
         }
     }
     // Start fetching moves
+    stopGame();
+    fetcher = setInterval(fetchMoves, 1000);
+    // TODO: cancel this when we leave the game
+}
+
+export function stopGame() {
     if (fetcher) {
         clearInterval(fetcher);
     }
-    fetcher = setInterval(fetchMoves, 3000);
-    // TODO: cancel this when we leave the game
+    fetcher = undefined;
 }
 
 function rotated(tile, rot) {
@@ -170,19 +175,19 @@ function isConnected(tile) {
     }
 }
 
+// check for win contidion
 function isWin() {
     for (const row of game.tiles) {
         for (const tile of row) {
             if (!isConnected(tile)) {
-                // console.log('not yet')
                 return false;
             }
         }
     }
-    console.log('You win');
     return true;
 }
 
+// show endgame animation
 function endGame() {
     const smile = document.createElement('div');
     smile.classList.add('win');

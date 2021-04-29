@@ -43,8 +43,6 @@ export async function sendRequest(action, payload) {
             displayErrors(data.error);
             return;
         }
-
-        console.log('Successful request.', data);
         return data;
 
     } catch (err) {

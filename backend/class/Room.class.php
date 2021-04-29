@@ -63,8 +63,7 @@ class Room implements JsonSerializable
         $density = validate($payload->density, 'density');
         $game = Game::generate($w, $h, $density);
 
-        // TODO: check is roomname exists
-        // check if username exists
+        // check if roomname exists
         if (globalDB()->simpleQuery(
             'SELECT id FROM rooms WHERE name = ?',
             [$name]
@@ -72,7 +71,6 @@ class Room implements JsonSerializable
             throw new Exception('Roomname exists.');
         }
 
-        // TODO: generate with a fix seed and store the seed in params too
         $params = ['size' => $w, 'density' => $density];
         // Insert into DB
         $stmt = globalDB()->prepare(

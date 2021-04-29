@@ -30,7 +30,6 @@ class Tile implements JsonSerializable
         $template = Tile::$templates[$connections];
         $this->image = $template['image'];
         $this->conns = $template['connections'];
-        // TODO: add rotation to templates
         $this->rot = 0;
     }
 
